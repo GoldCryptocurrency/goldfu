@@ -1,1 +1,3 @@
-GaQyYHLb1YC3i85znd3KtbiVSzg65Zh4AW
+vps3 = GaQyYHLb1YC3i85znd3KtbiVSzg65Zh4AW
+
+vpswindows = GLmgfrKRqrShdUbpQwyW1a1gR5K7N6NDYT
