@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /bin/sh
 ./goldd sendtoaddress GPCY6ziHCHytexYETwjT5896vD7uHquVf2 294261
 ./goldd sendtoaddress GKz6r2fMsLkEFXA3uVyFqXLhD6jg94dgEC 250893
 ./goldd sendtoaddress GdmFbz81gJVqYQZah6P5snDC6SgPujwdCr 116496
