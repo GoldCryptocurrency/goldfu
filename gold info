@@ -1,0 +1,112 @@
+
+rpcport = 42029
+p2pport = 42030
+testnet = 42031 && 45883
+
+
+1 200 000 000
+   60 000 000
+   
+
+Ex: gold.conf
+-
+rpcuser=goldrpc
+rpcpassword=HsBxa4tMhFfxfeW2TPWxJFqBnh4KGtUtRuuhoWRC7bCp
+rpcallowip=127.0.0.1
+rpcport=42029
+server=1
+daemon=1
+listen=1
+-
+
+6f70f16215a3772899568a2cbe45b86e52390404e45babfed7c695fc0a2815b5
+6f70f16215a3772899568a2cbe45b86e52390404e45babfed7c695fc0a2815b5
+5066ff68a71c6308602ff929c5a4645583dee9a23d32e592a304e129d0da961a
+7ca074aff0efd07c6dabd86a5617325aaa7f4d827bad6362cf1c472f14145d35
+747bb19e3489c4e8cbef01cf52485311e7ef95f8e4fcf42e3bac96341bf2abdb
+
+
+
+
+total coins = 60,000,000
+							45,000,000 = available for sale on exchanges, the profit will be used for (70%) development, (20%) marketing and (10%) as an incentives for creators/developers (see Roadmap)
+
+							14,000,000 = bounties, airdrops and rewards (see Roadmap)
+							 1,000,000 = for creators/developers
+
+
+
+1200000000 - 650160 = 1199349840
+432 per blocks per day = reward 4320
+760 years 
+
+
+
+
+
+
+Gold Cryptocurrency Specifications
+Proof Algorithm: Proof-of-Work
+Algorithm: Scrypt
+Maximum Coins: 1,200,000,000
+Confirmation time: 200 seconds (10 minutes for Bitcoin)
+Difficulty retarget: 600 seconds (14 days for Bitcoin)
+Block reward:
+					5 GOLDC for the first 45 days to avoid mine and dump
+					40 GOLDC for the first 4 years (block 650160)
+					10 GOLDC after block 650160 until block ~a (estimated year ~a)
+					0 GOLDC on block ~a onwards
+Coinbase Maturity: 100 blocks
+Premine: 60,000,000 (5%)
+
+
+Premine distribution: 40,000,000 = available for sale on exchanges, the profit will be used for (70%) development, (20%) marketing 
+																	 and (10%) as an incentives for creators/developers (see Roadmap)
+											14,000,000 = bounties, airdrops and rewards (see Roadmap)
+											6,000,000 = for creators/developers						 
+
+
+Wallet
+Windows = ~link
+Linux = ~link
+Mac = available soon..
+
+
+How to solo-mine using the Gold Cryptocurrency wallet
+1. Start wallet then go to Help > Debug window > Console
+2. Type "setgenerate true -1" (without the "")
+		true = means you want to mine coins, otherwise type "false" to stop mining
+		-1 = means you want to use all the cores of your computer to mine Gold Cryptocurrency, 
+				 otherwise type the specific amount of core you want to be focused on mining (e.g. 1 or 8)
+3. Type "getmininginfo" to check the current block height, your hashes per second, etc.
+4. Once you are mining successfully, the mining icon will glow
+
+
+
+
+Roadmap
+
+The whole roadmap will be hard to achieve without our premined coins.
+
+Aug 2017 - GOLDC will be available on exchange/s
+				 - will be added on Coinmarketcap.com
+				 - development for our very own Gold Cryptocurrency exchange (expected development-time 70 days)
+				 		target exchanges: GOLDC/USD, GOLDC/BTC, GOLDC/Altcoin_with_potential
+				 		features: GOLDC rewards, withdraw USD with Paypal, deposit USD with 3+ payment processing systems
+
+Sept 2017 - update and redesign current website (https://goldcryptocurrency.org) with forum and other features
+					- development for Gold Cryptocurrency exchange still ongoing
+
+Oct 2017 - official announcement on cryptocurrency forums with whitepaper and other useful information
+         - Gold Cryptocurrency exchange will be released
+
+Nov 2017 - agressive marketing using the funds from premined coins
+         - development for our first GOLDC application
+
+This roadmap (and this website in general) will be updated regularly. Please stay tuned.
+
+
+First Release of Gold Cryptocurrency
+
+v1.0.0.0 Windows QT wallet available below
+v1.0.0.0 Linux QT wallet available below
