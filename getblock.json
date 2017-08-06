@@ -1,0 +1,21 @@
+{
+"height" : 519,
+"amount" : 411112.00000000,
+"confirmations" : 45,
+"blockhash" : "0d582e3592529474ecf8b35b0f6e189ba89a35880bd9ec0a74a4d5fa4a6a8e3e",
+"blockindex" : 1,
+"txid" : "577fe08e32089ccca44265b42cc7d3836ee1e3471c417d3b68abea3d6784d696",
+"time" : 1501964912,
+"comment" : "",
+"from" : "",
+"message" : "",
+"to" : "",
+"details" : [
+{
+"account" : "",
+"address" : "GR7RAJ62Lh6tWDqZDPEvbUBEoSDtgLe773",
+"category" : "receive",
+"amount" : 411112.00000000
+}
+]
+}
