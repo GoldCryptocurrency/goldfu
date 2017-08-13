@@ -19,3 +19,12 @@
 }
 ]
 }
+
+{
+	"user" : "goldusername",
+	"pwd" : "c476cc71ec006f53c96608c30caa6cdf",
+	"roles" : [
+		"readWrite"
+	],
+	"_id" : ObjectId("5986a34db9ea8ea51e03ef12")
+}

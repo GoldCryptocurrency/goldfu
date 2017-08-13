@@ -1,3 +1,4 @@
 vps1 = GRYz7gmN9UZFfX7Akbr72U17uzJ6Ge9Y7U
 vpswindows = GNPPeLsjYiqhCFM5gmJToQwdqRS4AZa6Cw
 goldx = GUyYZwREXYyg9yRPpBuiRHu8NqR3j2iHjC
+elementary=GehhK54kjehJh9gnRg89cFmEvLDaRc4nSz
