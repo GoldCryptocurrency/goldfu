@@ -1,0 +1,1 @@
+(function(){angular.module("translateFilters",[]).filter("t",function(){return function(key,args){return null==args&&(args={}),I18n.t(key,args)}})}).call(this);

@@ -1,0 +1,1 @@
+(function(){app.factory("$gon",["$window",function(win){return win.gon}])}).call(this);

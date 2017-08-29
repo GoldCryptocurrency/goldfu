@@ -1,0 +1,1 @@
+(function(){this.NotificationMixin=function(){return this.notify=function(body,title){var notification;return title||(title=gon.i18n.notification.title),notification=notifier.notify(title,body)}}}).call(this);

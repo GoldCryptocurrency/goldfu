@@ -1,0 +1,1 @@
+(function(){angular.module("textFilters",[]).filter("truncate",function(){return function(text,size){return text.length>20?text.slice(0,size)+"...":text}})}).call(this);

@@ -1,0 +1,1 @@
+(function(){app.config(["ngDialogProvider",function(ngDialogProvider){return ngDialogProvider.setDefaults({closeByDocument:!1,closeByEscape:!1,trapFocus:!1,cache:!1})}])}).call(this);
