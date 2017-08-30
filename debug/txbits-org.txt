@@ -1,0 +1,899 @@
+
+ading project definition from /home/user/txbits/current/txbits/project
+[info] Set current project to txbits (in build file:/home/user/txbits/current/txbits/)
+[success] Total time: 1 s, completed Aug 30, 2017 4:08:38 AM
+~/txbits/current
+user@198-23-151-66-host:~/txbits/current$ ./txbits gen-idea
+bash: ./txbits: Is a directory
+user@198-23-151-66-host:~/txbits/current$ ./txbits.sh gen-idea
+~/txbits/current/txbits ~/txbits/current
+[info] Loading project definition from /home/user/txbits/current/txbits/project
+[info] Set current project to txbits (in build file:/home/user/txbits/current/txbits/)
+[info] Creating IDEA module for project 'txbits' ...
+[info] Running compile:managedSources ...
+[info] Running test:managedSources ...
+[warn] Multiple dependencies with the same organization/name but different versions. To avoid conflict, pick one version:
+[warn]  * org.scala-lang:scala-library:(2.11.7, 2.11.6)
+[warn]  * org.apache.httpcomponents:httpclient:(4.0.1, 4.3.4)
+[warn]  * org.scala-lang:scala-reflect:(2.11.6, 2.11.7)
+[warn]  * com.google.guava:guava:(18.0, 16.0.1)
+[warn]  * org.apache.httpcomponents:httpcore:(4.0.1, 4.3.2)
+[warn]  * commons-logging:commons-logging:(1.1.1, 1.1.3)
+[warn]  * org.scala-lang.modules:scala-parser-combinators_2.11:(1.0.1, 1.0.2, 1.0.4)
+[warn]  * org.scala-lang.modules:scala-xml_2.11:(1.0.1, 1.0.2, 1.0.4)
+[info] Resolving jline#jline;2.12.1 ...
+[info] Excluding folder target
+[info] Created /home/user/txbits/current/txbits/.idea/IdeaProject.iml
+[info] Deleted existing library files
+[info] Created /home/user/txbits/current/txbits/.idea
+[info] Excluding folder /home/user/txbits/current/txbits/target/scala-2.11/classes
+[info] Excluding folder /home/user/txbits/current/txbits/target/resolution-cache
+[info] Excluding folder /home/user/txbits/current/txbits/target/streams
+[info] Excluding folder /home/user/txbits/current/txbits/target/web
+[info] Created /home/user/txbits/current/txbits/.idea_modules/txbits.iml
+[info] Created /home/user/txbits/current/txbits/.idea_modules/txbits-build.iml
+~/txbits/current
+user@198-23-151-66-host:~/txbits/current$ ./txbits.sh run
+~/txbits/current/txbits ~/txbits/current
+[info] Loading project definition from /home/user/txbits/current/txbits/project
+[info] Set current project to txbits (in build file:/home/user/txbits/current/txbits/)
+
+--- (Running the application, auto-reloading is enabled) ---
+
+[info] p.a.l.c.ActorSystemProvider - Starting application default Akka system: application
+[info] p.c.s.NettyServer - Listening for HTTP on /0:0:0:0:0:0:0:0:9000
+
+(Server started, use Ctrl+D to stop and go back to the console...)
+
+[debug] c.j.b.BoneCPDataSource - JDBC URL = jdbc:postgresql://localhost/txbits_testnet, Username = user, partitions = 1, max (per partition) = 30, min (per partition) = 5, idle max age = 10 min, idle test period = 1 min, strategy = DEFAULT
+[info] p.a.d.DefaultDBApi - Database [trust] connected at jdbc:postgresql://localhost/txbits_testnet
+[debug] c.j.b.BoneCPDataSource - JDBC URL = jdbc:postgresql://localhost/txbits_testnet, Username = user, partitions = 1, max (per partition) = 30, min (per partition) = 5, idle max age = 10 min, idle test period = 1 min, strategy = DEFAULT
+[info] p.a.d.DefaultDBApi - Database [wallet] connected at jdbc:postgresql://localhost/txbits_testnet
+[debug] c.j.b.BoneCPDataSource - JDBC URL = jdbc:postgresql://localhost/txbits_testnet, Username = user, partitions = 1, max (per partition) = 30, min (per partition) = 5, idle max age = 10 min, idle test period = 1 min, strategy = DEFAULT
+[info] p.a.d.DefaultDBApi - Database [default] connected at jdbc:postgresql://localhost/txbits_testnet
+[debug] c.j.b.StatementHandle - select id, hash, apply_script, revert_script, state, last_problem from play_evolutions where state like 'applying_%'
+[debug] c.j.b.StatementHandle - 
+            select id, hash, apply_script, revert_script from play_evolutions order by id
+        
+[info] a.e.s.Slf4jLogger - Slf4jLogger started
+[info] p.a.l.c.ActorSystemProvider - Starting application default Akka system: application
+[info] application - Application has started
+[info] application - [securesocial] loaded user service: class service.txbitsUserService$
+[info] play.api.Play - Application started (Dev)
+[debug] application - [securesocial] calling deleteExpiredTokens()
+[debug] c.j.b.PreparedStatementHandle - 
+      begin;
+      delete from deposits_crypto;
+      delete from deposits_other;
+      delete from deposits;
+      delete from users_passwords;
+      delete from users_api_keys;
+      delete from users_tfa_secrets;
+      delete from users_backup_otps;
+      delete from users_addresses;
+      delete from dw_fees;
+      delete from trade_fees;
+      delete from totp_tokens_blacklist;
+      delete from withdrawals_other;
+      delete from withdrawals_crypto;
+      delete from withdrawals_crypto_tx_mutated;
+      delete from withdrawals_crypto_tx_cold_storage;
+      delete from withdrawals_crypto_tx;
+      delete from withdrawals;
+      delete from currencies_crypto;
+      delete from wallets_crypto;
+      delete from balances;
+      delete from matches;
+      delete from stats_30_min;
+      delete from orders;
+      delete from markets;
+      delete from withdrawal_limits;
+      delete from currencies;
+      delete from event_log;
+      delete from tokens;
+      delete from trusted_action_requests;
+      delete from users;
+
+      select currency_insert('BTC',10);
+      select currency_insert('GOLDC',20);
+      select currency_insert('USD',30);
+      select currency_insert('CAD',40);
+
+      insert into markets(base,counter, limit_min, position) values ('BTC','USD',0.01,10);
+      insert into markets(base,counter, limit_min, position) values ('GOLDC','USD',0.1,20);
+      insert into markets(base,counter, limit_min, position) values ('GOLDC','BTC',0.1,30);
+      insert into markets(base,counter, limit_min, position) values ('USD','CAD',1.00,40);
+
+      insert into dw_fees(currency, method, deposit_constant, deposit_linear, withdraw_constant, withdraw_linear) values ('BTC', 'blockchain', 0.000, 0.000, 0.001, 0.000);
+      insert into dw_fees(currency, method, deposit_constant, deposit_linear, withdraw_constant, withdraw_linear) values ('GOLDC', 'blockchain', 0.000, 0.000, 0.010, 0.000);
+      insert into dw_fees(currency, method, deposit_constant, deposit_linear, withdraw_constant, withdraw_linear) values ('USD', 'wire', 0.000, 0.000, 0.000, 0.000);
+      insert into dw_fees(currency, method, deposit_constant, deposit_linear, withdraw_constant, withdraw_linear) values ('CAD', 'wire', 0.000, 0.000, 0.000, 0.000);
+
+      insert into trade_fees(linear, one_way) values (0.005, true);
+
+      insert into withdrawal_limits(currency, limit_min, limit_max) values ('BTC', 0.010, 10);
+      insert into withdrawal_limits(currency, limit_min, limit_max) values ('GOLDC', 0.100, 100);
+      insert into withdrawal_limits(currency, limit_min, limit_max) values ('USD', 1, 10000);
+      insert into withdrawal_limits(currency, limit_min, limit_max) values ('CAD', 1, 10000);
+
+      insert into currencies_crypto(currency) values('BTC');
+      insert into currencies_crypto(currency) values('GOLDC');
+
+      insert into wallets_crypto(currency, last_block_read, balance_min, balance_warn, balance_target, balance_max) values('GOLDC', 42, 0, 0, 1000, 10000);
+      insert into wallets_crypto(currency, last_block_read, balance_min, balance_warn, balance_target, balance_max) values('BTC', 42, 0, 0, 100, 1000);
+
+      insert into users(id, email) values (0, '');
+      insert into balances (user_id, currency) select 0, currency from currencies;
+
+      select create_user('me@viktorstanchev.com', 'password', true, null, 'en', 'stanchev');
+      select create_user('a@a.com', 'qwerty123', false, null, 'en', 'SuperCoolAdminGuy');
+      select create_user('b@b.com', '123qwe', false, null, 'en', 'StuzerTheLuzer');
+
+      update balances set balance = 1000 where user_id in (select id from users where email in ('me@viktorstanchev.com', 'a@a.com')) and currency in ('USD', 'CAD');
+      commit;
+      
+[error] application - org.postgresql.util.PSQLException: Cannot change transaction read-only property in the middle of a transaction.
+[debug] c.j.b.PreparedStatementHandle -  select * from get_currencies() 
+[debug] c.j.b.PreparedStatementHandle -  select * from get_pairs() 
+[debug] c.j.b.PreparedStatementHandle -  select * from dw_fees() 
+[debug] c.j.b.PreparedStatementHandle -  select * from trade_fees() 
+[debug] c.j.b.PreparedStatementHandle -  select * from dw_limits() 
+[debug] c.j.b.PreparedStatementHandle - select * from get_required_confirmations()
+[debug] c.j.b.PreparedStatementHandle - select * from delete_expired_tokens()
+[debug] c.j.b.PreparedStatementHandle - 
+    select * from delete_expired_totp_blacklist_tokens()
+    
+[debug] c.j.b.PreparedStatementHandle - select email, is_signup, language from trusted_action_requests
+[debug] c.j.b.PreparedStatementHandle - select w.*, u.email, u.id as uid, u.pgp, wc.address as destination from withdrawals w
+       inner join users u on w.user_id = u.id
+       left join withdrawals_crypto wc on w.id = wc.id
+       where confirmation_token is null
+      
+[debug] c.j.b.PreparedStatementHandle - select email, is_signup, language from trusted_action_requests
+[debug] c.j.b.PreparedStatementHandle - select w.*, u.email, u.id as uid, u.pgp, wc.address as destination from withdrawals w
+       inner join users u on w.user_id = u.id
+       left join withdrawals_crypto wc on w.id = wc.id
+       where confirmation_token is null
+      
+[debug] c.j.b.PreparedStatementHandle - select email, is_signup, language from trusted_action_requests
+[debug] c.j.b.PreparedStatementHandle - select w.*, u.email, u.id as uid, u.pgp, wc.address as destination from withdrawals w
+       inner join users u on w.user_id = u.id
+       left join withdrawals_crypto wc on w.id = wc.id
+       where confirmation_token is null
+      
+[debug] c.j.b.PreparedStatementHandle - select email, is_signup, language from trusted_action_requests
+[debug] c.j.b.PreparedStatementHandle - select w.*, u.email, u.id as uid, u.pgp, wc.address as destination from withdrawals w
+       inner join users u on w.user_id = u.id
+       left join withdrawals_crypto wc on w.id = wc.id
+       where confirmation_token is null
+      
+[debug] c.j.b.PreparedStatementHandle - 
+    select trusted_action_start as success from trusted_action_start('focus2money@gmail.com', true, 'en')
+    
+[debug] c.j.b.PreparedStatementHandle - select email, is_signup, language from trusted_action_requests
+[debug] c.j.b.PreparedStatementHandle - select * from user_exists('focus2money@gmail.com')
+[debug] c.j.b.PreparedStatementHandle - 
+    insert into tokens (token, email, creation, expiration, is_signup, language)
+    values ('4AXGVL54BSED6N2F5EWAHCNFD6GR5V64BC6XCX5IO2KEJUQ3', 'focus2money@gmail.com', 2017-08-30 04:11:04.264, 2017-08-30 05:11:04.264, true, 'en')
+    
+[debug] application - [securesocial] sending email to focus2money@gmail.com
+[debug] c.j.b.PreparedStatementHandle - delete from trusted_action_requests where email = 'focus2money@gmail.com' and is_signup = true
+[debug] c.j.b.PreparedStatementHandle - select w.*, u.email, u.id as uid, u.pgp, wc.address as destination from withdrawals w
+       inner join users u on w.user_id = u.id
+       left join withdrawals_crypto wc on w.id = wc.id
+       where confirmation_token is null
+      
+[debug] c.j.b.PreparedStatementHandle - select email, is_signup, language from trusted_action_requests
+[debug] c.j.b.PreparedStatementHandle - select w.*, u.email, u.id as uid, u.pgp, wc.address as destination from withdrawals w
+       inner join users u on w.user_id = u.id
+       left join withdrawals_crypto wc on w.id = wc.id
+       where confirmation_token is null
+      
+[debug] application - [securesocial] trying sign up with token 4AXGVL54BSED6N2F5EWAHCNFD6GR5V64BC6XCX5IO2KEJUQ3
+[debug] c.j.b.PreparedStatementHandle - 
+    select * from find_token('4AXGVL54BSED6N2F5EWAHCNFD6GR5V64BC6XCX5IO2KEJUQ3')
+    
+[debug] c.j.b.PreparedStatementHandle - select email, is_signup, language from trusted_action_requests
+[debug] c.j.b.PreparedStatementHandle - select w.*, u.email, u.id as uid, u.pgp, wc.address as destination from withdrawals w
+       inner join users u on w.user_id = u.id
+       left join withdrawals_crypto wc on w.id = wc.id
+       where confirmation_token is null
+      
+[debug] c.j.b.PreparedStatementHandle - 
+    select * from find_token('4AXGVL54BSED6N2F5EWAHCNFD6GR5V64BC6XCX5IO2KEJUQ3')
+    
+[debug] c.j.b.PreparedStatementHandle - 
+    select create_user_complete as id from create_user_complete('focus2money@gmail.com', 'goldentropygold', false, '[SQL NULL of type 12]', '4AXGVL54BSED6N2F5EWAHCNFD6GR5V64BC6XCX5IO2KEJUQ3', 'focus2money818')
+    
+[debug] c.j.b.PreparedStatementHandle - select * from add_fake_money(3523329764190767000, 'USD', 100)
+[debug] c.j.b.PreparedStatementHandle - select * from add_fake_money(3523329764190767000, 'CAD', 100)
+[debug] c.j.b.PreparedStatementHandle - 
+    select * from delete_token('4AXGVL54BSED6N2F5EWAHCNFD6GR5V64BC6XCX5IO2KEJUQ3')
+    
+[debug] application - [securesocial] sending email to focus2money@gmail.com
+[debug] c.j.b.PreparedStatementHandle - 
+    select * from new_log(3523329764190767000, '{"Upgrade-Insecure-Requests":["1"],"Referer":["http://198.23.151.66:9000/signup/4AXGVL54BSED6N2F5EWAHCNFD6GR5V64BC6XCX5IO2KEJUQ3"],"Connection":["keep-alive"],"Content-Length":["179"],"Accept":["text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"],"Content-Type":["application/x-www-form-urlencoded"],"Cookie":["_ga=GA1.1.515259259.1504023070; _gid=GA1.1.665449547.1504023070; __uvt=; uvts=6S4sTzMlj31itz88; PLAY_SESSION=6e90a19248911f390d5f004efdcbbabbe8b66e68-csrfToken=9e7b8ee19d154bb17a1fd73a094fd7a8271edfdf-1504068882178-32a5766355efa2eee26d6d79; id=4S/rha3oYLJdGTgFFYgYpf4zLOHFHeSIR8mMGDfZ+TY=; PLAY_LANG=en; _gat=1"],"Accept-Language":["en-US,en;q=0.5"],"Accept-Encoding":["gzip, deflate"],"User-Agent":["Mozilla/5.0 (X11; Linux i686; rv:55.0) Gecko/20100101 Firefox/55.0"],"Host":["198.23.151.66:9000"]}', 'focus2money@gmail.com', '[SQL NULL of type 12]', '[SQL NULL of type 12]', inet('110.54.133.239'), 'signup_success')
+    
+[debug] c.j.b.PreparedStatementHandle - select email, is_signup, language from trusted_action_requests
+[debug] c.j.b.PreparedStatementHandle - select w.*, u.email, u.id as uid, u.pgp, wc.address as destination from withdrawals w
+       inner join users u on w.user_id = u.id
+       left join withdrawals_crypto wc on w.id = wc.id
+       where confirmation_token is null
+      
+[debug] c.j.b.PreparedStatementHandle - select * from user_has_totp('focus2money@gmail.com')
+[debug] c.j.b.PreparedStatementHandle - 
+    select * from find_user_by_email_and_password('focus2money@gmail.com', 'goldentropygold', '{"Upgrade-Insecure-Requests":["1"],"Referer":["http://198.23.151.66:9000/login"],"Connection":["keep-alive"],"Content-Length":["147"],"Accept":["text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"],"Content-Type":["application/x-www-form-urlencoded"],"Cookie":["_ga=GA1.1.515259259.1504023070; _gid=GA1.1.665449547.1504023070; __uvt=; uvts=6S4sTzMlj31itz88; PLAY_SESSION=6e90a19248911f390d5f004efdcbbabbe8b66e68-csrfToken=9e7b8ee19d154bb17a1fd73a094fd7a8271edfdf-1504068882178-32a5766355efa2eee26d6d79; id=4S/rha3oYLJdGTgFFYgYpf4zLOHFHeSIR8mMGDfZ+TY=; PLAY_LANG=en"],"Accept-Language":["en-US,en;q=0.5"],"Accept-Encoding":["gzip, deflate"],"User-Agent":["Mozilla/5.0 (X11; Linux i686; rv:55.0) Gecko/20100101 Firefox/55.0"],"Host":["198.23.151.66:9000"]}', inet('110.54.133.239'))
+    
+[debug] c.j.b.PreparedStatementHandle - select * from find_user_by_id(3523329764190767000)
+[debug] c.j.b.PreparedStatementHandle - select * from find_user_by_id(3523329764190767000)
+[debug] c.j.b.PreparedStatementHandle - select * from balance(3523329764190767000, '[SQL NULL of type 12]')
+[debug] c.j.b.PreparedStatementHandle - select * from find_user_by_id(3523329764190767000)
+[debug] c.j.b.PreparedStatementHandle - select email, is_signup, language from trusted_action_requests
+[debug] c.j.b.PreparedStatementHandle - select w.*, u.email, u.id as uid, u.pgp, wc.address as destination from withdrawals w
+       inner join users u on w.user_id = u.id
+       left join withdrawals_crypto wc on w.id = wc.id
+       where confirmation_token is null
+      
+[debug] c.j.b.PreparedStatementHandle - select email, is_signup, language from trusted_action_requests
+[debug] c.j.b.PreparedStatementHandle - select w.*, u.email, u.id as uid, u.pgp, wc.address as destination from withdrawals w
+       inner join users u on w.user_id = u.id
+       left join withdrawals_crypto wc on w.id = wc.id
+       where confirmation_token is null
+      
+[debug] c.j.b.PreparedStatementHandle - select email, is_signup, language from trusted_action_requests
+[debug] c.j.b.PreparedStatementHandle - select w.*, u.email, u.id as uid, u.pgp, wc.address as destination from withdrawals w
+       inner join users u on w.user_id = u.id
+       left join withdrawals_crypto wc on w.id = wc.id
+       where confirmation_token is null
+      
+[debug] c.j.b.PreparedStatementHandle - select email, is_signup, language from trusted_action_requests
+[debug] c.j.b.PreparedStatementHandle - select w.*, u.email, u.id as uid, u.pgp, wc.address as destination from withdrawals w
+       inner join users u on w.user_id = u.id
+       left join withdrawals_crypto wc on w.id = wc.id
+       where confirmation_token is null
+      
+[debug] c.j.b.PreparedStatementHandle - select email, is_signup, language from trusted_action_requests
+[debug] c.j.b.PreparedStatementHandle - select w.*, u.email, u.id as uid, u.pgp, wc.address as destination from withdrawals w
+       inner join users u on w.user_id = u.id
+       left join withdrawals_crypto wc on w.id = wc.id
+       where confirmation_token is null
+      
+[debug] c.j.b.PreparedStatementHandle - select email, is_signup, language from trusted_action_requests
+[debug] c.j.b.PreparedStatementHandle - select w.*, u.email, u.id as uid, u.pgp, wc.address as destination from withdrawals w
+       inner join users u on w.user_id = u.id
+       left join withdrawals_crypto wc on w.id = wc.id
+       where confirmation_token is null
+      
+[debug] c.j.b.PreparedStatementHandle - select email, is_signup, language from trusted_action_requests
+[debug] c.j.b.PreparedStatementHandle - select w.*, u.email, u.id as uid, u.pgp, wc.address as destination from withdrawals w
+       inner join users u on w.user_id = u.id
+       left join withdrawals_crypto wc on w.id = wc.id
+       where confirmation_token is null
+      
+[debug] c.j.b.PreparedStatementHandle - select email, is_signup, language from trusted_action_requests
+[debug] c.j.b.PreparedStatementHandle - select w.*, u.email, u.id as uid, u.pgp, wc.address as destination from withdrawals w
+       inner join users u on w.user_id = u.id
+       left join withdrawals_crypto wc on w.id = wc.id
+       where confirmation_token is null
+      
+[debug] c.j.b.PreparedStatementHandle - select email, is_signup, language from trusted_action_requests
+[debug] c.j.b.PreparedStatementHandle - select w.*, u.email, u.id as uid, u.pgp, wc.address as destination from withdrawals w
+       inner join users u on w.user_id = u.id
+       left join withdrawals_crypto wc on w.id = wc.id
+       where confirmation_token is null
+      
+[debug] c.j.b.PreparedStatementHandle - select email, is_signup, language from trusted_action_requests
+[debug] c.j.b.PreparedStatementHandle - select w.*, u.email, u.id as uid, u.pgp, wc.address as destination from withdrawals w
+       inner join users u on w.user_id = u.id
+       left join withdrawals_crypto wc on w.id = wc.id
+       where confirmation_token is null
+      
+[debug] c.j.b.PreparedStatementHandle - select email, is_signup, language from trusted_action_requests
+[debug] c.j.b.PreparedStatementHandle - select w.*, u.email, u.id as uid, u.pgp, wc.address as destination from withdrawals w
+       inner join users u on w.user_id = u.id
+       left join withdrawals_crypto wc on w.id = wc.id
+       where confirmation_token is null
+      
+[debug] application - [securesocial] calling deleteExpiredTokens()
+[debug] c.j.b.PreparedStatementHandle - select * from delete_expired_tokens()
+[debug] c.j.b.PreparedStatementHandle - 
+    select * from delete_expired_totp_blacklist_tokens()
+    
+[debug] c.j.b.PreparedStatementHandle - select email, is_signup, language from trusted_action_requests
+[debug] c.j.b.PreparedStatementHandle - select w.*, u.email, u.id as uid, u.pgp, wc.address as destination from withdrawals w
+       inner join users u on w.user_id = u.id
+       left join withdrawals_crypto wc on w.id = wc.id
+       where confirmation_token is null
+      
+[debug] c.j.b.PreparedStatementHandle - select email, is_signup, language from trusted_action_requests
+[debug] c.j.b.PreparedStatementHandle - select w.*, u.email, u.id as uid, u.pgp, wc.address as destination from withdrawals w
+       inner join users u on w.user_id = u.id
+       left join withdrawals_crypto wc on w.id = wc.id
+       where confirmation_token is null
+      
+[debug] c.j.b.PreparedStatementHandle - select email, is_signup, language from trusted_action_requests
+[debug] c.j.b.PreparedStatementHandle - select w.*, u.email, u.id as uid, u.pgp, wc.address as destination from withdrawals w
+       inner join users u on w.user_id = u.id
+       left join withdrawals_crypto wc on w.id = wc.id
+       where confirmation_token is null
+      
+[debug] c.j.b.PreparedStatementHandle - select email, is_signup, language from trusted_action_requests
+[debug] c.j.b.PreparedStatementHandle - select w.*, u.email, u.id as uid, u.pgp, wc.address as destination from withdrawals w
+       inner join users u on w.user_id = u.id
+       left join withdrawals_crypto wc on w.id = wc.id
+       where confirmation_token is null
+      
+[debug] c.j.b.PreparedStatementHandle - select email, is_signup, language from trusted_action_requests
+[debug] c.j.b.PreparedStatementHandle - select w.*, u.email, u.id as uid, u.pgp, wc.address as destination from withdrawals w
+       inner join users u on w.user_id = u.id
+       left join withdrawals_crypto wc on w.id = wc.id
+       where confirmation_token is null
+      
+~/txbits/current
+user@198-23-151-66-host:~/txbits/current$ \echo :AUTOCOMMIT
+:AUTOCOMMIT
+user@198-23-151-66-host:~/txbits/current$ sudo -u postgres psql txbits_testnet
+[sudo] password for user: 
+psql (9.3.18)
+Type "help" for help.
+
+txbits_testnet=# \echo :AUTOCOMMIT
+on
+txbits_testnet=# SET AUTOCOMMIT = OFF
+txbits_testnet-# \echo :AUTOCOMMIT
+on
+txbits_testnet-# SET AUTOCOMMIT TO OFF
+txbits_testnet-# \echo :AUTOCOMMIT
+on
+txbits_testnet-# \set AUTOCOMMIT off
+txbits_testnet-# \echo :AUTOCOMMIT
+off
+txbits_testnet-# \echo :AUTOCOMMIT
+off
+txbits_testnet-# \q
+user@198-23-151-66-host:~/txbits/current$ ./txbits.sh compile
+~/txbits/current/txbits ~/txbits/current
+[info] Loading project definition from /home/user/txbits/current/txbits/project
+[info] Set current project to txbits (in build file:/home/user/txbits/current/txbits/)
+[success] Total time: 1 s, completed Aug 30, 2017 4:24:54 AM
+~/txbits/current
+user@198-23-151-66-host:~/txbits/current$ ./txbits.sh gen-idea
+~/txbits/current/txbits ~/txbits/current
+[info] Loading project definition from /home/user/txbits/current/txbits/project
+[info] Set current project to txbits (in build file:/home/user/txbits/current/txbits/)
+[info] Creating IDEA module for project 'txbits' ...
+[info] Running compile:managedSources ...
+[info] Running test:managedSources ...
+[warn] Multiple dependencies with the same organization/name but different versions. To avoid conflict, pick one version:
+[warn]  * org.scala-lang:scala-library:(2.11.7, 2.11.6)
+[warn]  * org.apache.httpcomponents:httpclient:(4.0.1, 4.3.4)
+[warn]  * org.scala-lang:scala-reflect:(2.11.6, 2.11.7)
+[warn]  * com.google.guava:guava:(18.0, 16.0.1)
+[warn]  * org.apache.httpcomponents:httpcore:(4.0.1, 4.3.2)
+[warn]  * commons-logging:commons-logging:(1.1.1, 1.1.3)
+[warn]  * org.scala-lang.modules:scala-parser-combinators_2.11:(1.0.1, 1.0.2, 1.0.4)
+[warn]  * org.scala-lang.modules:scala-xml_2.11:(1.0.1, 1.0.2, 1.0.4)
+[info] Resolving jline#jline;2.12.1 ...
+[info] Excluding folder target
+[info] Created /home/user/txbits/current/txbits/.idea/IdeaProject.iml
+[info] Deleted existing library files
+[info] Created /home/user/txbits/current/txbits/.idea
+[info] Excluding folder /home/user/txbits/current/txbits/target/scala-2.11/classes
+[info] Excluding folder /home/user/txbits/current/txbits/target/resolution-cache
+[info] Excluding folder /home/user/txbits/current/txbits/target/streams
+[info] Excluding folder /home/user/txbits/current/txbits/target/web
+[info] Created /home/user/txbits/current/txbits/.idea_modules/txbits.iml
+[info] Created /home/user/txbits/current/txbits/.idea_modules/txbits-build.iml
+~/txbits/current
+user@198-23-151-66-host:~/txbits/current$ ./txbits.sh run
+~/txbits/current/txbits ~/txbits/current
+[info] Loading project definition from /home/user/txbits/current/txbits/project
+[info] Set current project to txbits (in build file:/home/user/txbits/current/txbits/)
+
+--- (Running the application, auto-reloading is enabled) ---
+
+[info] p.a.l.c.ActorSystemProvider - Starting application default Akka system: application
+[info] p.c.s.NettyServer - Listening for HTTP on /0:0:0:0:0:0:0:0:9000
+
+(Server started, use Ctrl+D to stop and go back to the console...)
+
+[debug] c.j.b.BoneCPDataSource - JDBC URL = jdbc:postgresql://localhost/txbits_testnet, Username = user, partitions = 1, max (per partition) = 30, min (per partition) = 5, idle max age = 10 min, idle test period = 1 min, strategy = DEFAULT
+[info] p.a.d.DefaultDBApi - Database [trust] connected at jdbc:postgresql://localhost/txbits_testnet
+[debug] c.j.b.BoneCPDataSource - JDBC URL = jdbc:postgresql://localhost/txbits_testnet, Username = user, partitions = 1, max (per partition) = 30, min (per partition) = 5, idle max age = 10 min, idle test period = 1 min, strategy = DEFAULT
+[info] p.a.d.DefaultDBApi - Database [wallet] connected at jdbc:postgresql://localhost/txbits_testnet
+[debug] c.j.b.BoneCPDataSource - JDBC URL = jdbc:postgresql://localhost/txbits_testnet, Username = user, partitions = 1, max (per partition) = 30, min (per partition) = 5, idle max age = 10 min, idle test period = 1 min, strategy = DEFAULT
+[info] p.a.d.DefaultDBApi - Database [default] connected at jdbc:postgresql://localhost/txbits_testnet
+[debug] c.j.b.StatementHandle - select id, hash, apply_script, revert_script, state, last_problem from play_evolutions where state like 'applying_%'
+[debug] c.j.b.StatementHandle - 
+            select id, hash, apply_script, revert_script from play_evolutions order by id
+        
+[info] a.e.s.Slf4jLogger - Slf4jLogger started
+[info] p.a.l.c.ActorSystemProvider - Starting application default Akka system: application
+[info] application - Application has started
+[info] application - [securesocial] loaded user service: class service.txbitsUserService$
+[info] play.api.Play - Application started (Dev)
+[debug] application - [securesocial] calling deleteExpiredTokens()
+[debug] c.j.b.PreparedStatementHandle - 
+      begin;
+      delete from deposits_crypto;
+      delete from deposits_other;
+      delete from deposits;
+      delete from users_passwords;
+      delete from users_api_keys;
+      delete from users_tfa_secrets;
+      delete from users_backup_otps;
+      delete from users_addresses;
+      delete from dw_fees;
+      delete from trade_fees;
+      delete from totp_tokens_blacklist;
+      delete from withdrawals_other;
+      delete from withdrawals_crypto;
+      delete from withdrawals_crypto_tx_mutated;
+      delete from withdrawals_crypto_tx_cold_storage;
+      delete from withdrawals_crypto_tx;
+      delete from withdrawals;
+      delete from currencies_crypto;
+      delete from wallets_crypto;
+      delete from balances;
+      delete from matches;
+      delete from stats_30_min;
+      delete from orders;
+      delete from markets;
+      delete from withdrawal_limits;
+      delete from currencies;
+      delete from event_log;
+      delete from tokens;
+      delete from trusted_action_requests;
+      delete from users;
+
+      select currency_insert('BTC',10);
+      select currency_insert('GOLDC',20);
+      select currency_insert('USD',30);
+      select currency_insert('CAD',40);
+
+      insert into markets(base,counter, limit_min, position) values ('BTC','USD',0.01,10);
+      insert into markets(base,counter, limit_min, position) values ('GOLDC','USD',0.1,20);
+      insert into markets(base,counter, limit_min, position) values ('GOLDC','BTC',0.1,30);
+      insert into markets(base,counter, limit_min, position) values ('USD','CAD',1.00,40);
+
+      insert into dw_fees(currency, method, deposit_constant, deposit_linear, withdraw_constant, withdraw_linear) values ('BTC', 'blockchain', 0.000, 0.000, 0.001, 0.000);
+      insert into dw_fees(currency, method, deposit_constant, deposit_linear, withdraw_constant, withdraw_linear) values ('GOLDC', 'blockchain', 0.000, 0.000, 0.010, 0.000);
+      insert into dw_fees(currency, method, deposit_constant, deposit_linear, withdraw_constant, withdraw_linear) values ('USD', 'wire', 0.000, 0.000, 0.000, 0.000);
+      insert into dw_fees(currency, method, deposit_constant, deposit_linear, withdraw_constant, withdraw_linear) values ('CAD', 'wire', 0.000, 0.000, 0.000, 0.000);
+
+      insert into trade_fees(linear, one_way) values (0.005, true);
+
+      insert into withdrawal_limits(currency, limit_min, limit_max) values ('BTC', 0.010, 10);
+      insert into withdrawal_limits(currency, limit_min, limit_max) values ('GOLDC', 0.100, 100);
+      insert into withdrawal_limits(currency, limit_min, limit_max) values ('USD', 1, 10000);
+      insert into withdrawal_limits(currency, limit_min, limit_max) values ('CAD', 1, 10000);
+
+      insert into currencies_crypto(currency) values('BTC');
+      insert into currencies_crypto(currency) values('GOLDC');
+
+      insert into wallets_crypto(currency, last_block_read, balance_min, balance_warn, balance_target, balance_max) values('GOLDC', 42, 0, 0, 1000, 10000);
+      insert into wallets_crypto(currency, last_block_read, balance_min, balance_warn, balance_target, balance_max) values('BTC', 42, 0, 0, 100, 1000);
+
+      insert into users(id, email) values (0, '');
+      insert into balances (user_id, currency) select 0, currency from currencies;
+
+      select create_user('me@viktorstanchev.com', 'password', true, null, 'en', 'stanchev');
+      select create_user('a@a.com', 'qwerty123', false, null, 'en', 'SuperCoolAdminGuy');
+      select create_user('b@b.com', '123qwe', false, null, 'en', 'StuzerTheLuzer');
+
+      update balances set balance = 1000 where user_id in (select id from users where email in ('me@viktorstanchev.com', 'a@a.com')) and currency in ('USD', 'CAD');
+      commit;
+      
+[error] application - org.postgresql.util.PSQLException: Cannot change transaction read-only property in the middle of a transaction.
+[debug] c.j.b.PreparedStatementHandle -  select * from get_currencies() 
+[debug] c.j.b.PreparedStatementHandle -  select * from get_pairs() 
+[debug] c.j.b.PreparedStatementHandle -  select * from dw_fees() 
+[debug] c.j.b.PreparedStatementHandle -  select * from trade_fees() 
+[debug] c.j.b.PreparedStatementHandle -  select * from dw_limits() 
+[debug] c.j.b.PreparedStatementHandle - select * from get_required_confirmations()
+[debug] c.j.b.PreparedStatementHandle - select * from delete_expired_tokens()
+[debug] c.j.b.PreparedStatementHandle - 
+    select * from delete_expired_totp_blacklist_tokens()
+    
+[debug] c.j.b.PreparedStatementHandle - select email, is_signup, language from trusted_action_requests
+[debug] c.j.b.PreparedStatementHandle - select w.*, u.email, u.id as uid, u.pgp, wc.address as destination from withdrawals w
+       inner join users u on w.user_id = u.id
+       left join withdrawals_crypto wc on w.id = wc.id
+       where confirmation_token is null
+      
+[debug] c.j.b.PreparedStatementHandle - select email, is_signup, language from trusted_action_requests
+[debug] c.j.b.PreparedStatementHandle - select w.*, u.email, u.id as uid, u.pgp, wc.address as destination from withdrawals w
+       inner join users u on w.user_id = u.id
+       left join withdrawals_crypto wc on w.id = wc.id
+       where confirmation_token is null
+      
+[debug] c.j.b.PreparedStatementHandle - select email, is_signup, language from trusted_action_requests
+[debug] c.j.b.PreparedStatementHandle - select w.*, u.email, u.id as uid, u.pgp, wc.address as destination from withdrawals w
+       inner join users u on w.user_id = u.id
+       left join withdrawals_crypto wc on w.id = wc.id
+       where confirmation_token is null
+      
+[debug] c.j.b.PreparedStatementHandle - select email, is_signup, language from trusted_action_requests
+[debug] c.j.b.PreparedStatementHandle - select w.*, u.email, u.id as uid, u.pgp, wc.address as destination from withdrawals w
+       inner join users u on w.user_id = u.id
+       left join withdrawals_crypto wc on w.id = wc.id
+       where confirmation_token is null
+      
+~/txbits/current
+user@198-23-151-66-host:~/txbits/current$ cd ..
+user@198-23-151-66-host:~/txbits$ git clone https://github.com/txbits/txbits.git original
+Cloning into 'original'...
+remote: Counting objects: 3656, done.
+remote: Total 3656 (delta 0), reused 0 (delta 0), pack-reused 3656
+Receiving objects: 100% (3656/3656), 4.99 MiB | 0 bytes/s, done.
+Resolving deltas: 100% (2428/2428), done.
+Checking connectivity... done.
+user@198-23-151-66-host:~/txbits$ cd original
+user@198-23-151-66-host:~/txbits/original$ ./txbits.sh compile
+~/txbits/original/txbits ~/txbits/original
+[info] Loading project definition from /home/user/txbits/original/txbits/project
+[info] Set current project to txbits (in build file:/home/user/txbits/original/txbits/)
+[info] Updating {file:/home/user/txbits/original/txbits/}root...
+[info] Resolving com.typesafe.play#twirl-api_2.11;1.1.1 ...
+[info] Formatting 36 Scala sources {file:/home/user/txbits/original/txbits/}root(compile) ...
+[info] Resolving jline#jline;2.12.1 ...
+[info] Done updating.
+[info] Compiling 77 Scala sources and 5 Java sources to /home/user/txbits/original/txbits/target/scala-2.11/classes...
+[warn] /home/user/txbits/original/txbits/app/controllers/StatsAPI/APIv1.scala:117: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]       SQL""" select * from chart_from_db($base, $counter)"""().filter(row =>
+[warn]       ^
+[warn] /home/user/txbits/original/txbits/app/models/EngineModel.scala:130: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL"""select * from balance($uid, $apiKey)"""().map(row =>
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/models/EngineModel.scala:136: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     val res = SQL""" select * from order_new($uid, $apiKey, $base, $counter, ${amount.bigDecimal}, ${price.bigDecimal}, $isBid) """().map(row =>
+[warn]               ^
+[warn] /home/user/txbits/original/txbits/app/models/EngineModel.scala:150: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]       val (asks, bids, total_base, total_counter) = SQL""" select * from orders_depth($base, $counter) """().map(row => (
+[warn]                                                     ^
+[warn] /home/user/txbits/original/txbits/app/models/EngineModel.scala:161: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL""" select * from user_pending_trades($uid, $apiKey) """().map(row =>
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/models/EngineModel.scala:168: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     val res = SQL""" select base, counter from order_cancel($uid, $apiKey, $orderId) """().map(row =>
+[warn]               ^
+[warn] /home/user/txbits/original/txbits/app/models/EngineModel.scala:190: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL"""
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/models/EngineModel.scala:196: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL"""
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/models/EngineModel.scala:202: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL"""
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/models/EngineModel.scala:208: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL"""
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/models/EngineModel.scala:215: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]       SQL"""select * from get_all_addresses($uid)"""().map(
+[warn]       ^
+[warn] /home/user/txbits/original/txbits/app/models/EngineModel.scala:229: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]       SQL"""select * from user_pending_withdrawals($uid)"""().map(row =>
+[warn]       ^
+[warn] /home/user/txbits/original/txbits/app/models/EngineModel.scala:248: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]       SQL""" select * from user_pending_deposits($uid) """().map(row =>
+[warn]       ^
+[warn] /home/user/txbits/original/txbits/app/models/EngineModel.scala:266: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]       Json.toJson(SQL""" select * from recent_trades($base, $counter) """().map(row =>
+[warn]                   ^
+[warn] /home/user/txbits/original/txbits/app/models/LogModel.scala:77: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL"""
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/models/MetaModel.scala:50: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL""" select * from get_currencies() """().map(_[String]("currency")).toList
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/models/MetaModel.scala:54: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL""" select * from get_pairs() """().map(row => (row[String]("base"), row[String]("counter"), row[Boolean]("active"), row[BigDecimal]("limit_min"))).toList
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/models/MetaModel.scala:65: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL""" select * from dw_fees() """().map(row =>
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/models/MetaModel.scala:78: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL""" select * from trade_fees() """().map(row =>
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/models/MetaModel.scala:87: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL""" select * from dw_limits() """().map(row =>
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/models/MetaModel.scala:98: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL"""select * from get_required_confirmations()"""().map(row =>
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/models/UserModel.scala:58: method list in class SimpleSql is deprecated: Use `SQL("...").as(parser.*)`
+[warn]     """.map(row => row[Option[Long]]("id")).list.head
+[warn]                                             ^
+[warn] /home/user/txbits/original/txbits/app/models/UserModel.scala:65: method list in class SimpleSql is deprecated: Use `SQL("...").as(parser.*)`
+[warn]     """.map(row => row[Long]("id")).list.headOption
+[warn]                                     ^
+[warn] /home/user/txbits/original/txbits/app/models/UserModel.scala:96: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]       SQL"""select * from find_user_by_id($id)"""().map(row =>
+[warn]       ^
+[warn] /home/user/txbits/original/txbits/app/models/UserModel.scala:111: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL"select * from user_exists($email)"().map(row =>
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/models/UserModel.scala:117: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL"select * from user_has_totp($email)"().map(row =>
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/models/UserModel.scala:123: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL"""
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/models/UserModel.scala:131: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL"""
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/models/UserModel.scala:157: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL"""
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/models/UserModel.scala:185: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL"""
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/models/UserModel.scala:200: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL"""
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/models/UserModel.scala:216: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL"""
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/models/UserModel.scala:244: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL"""
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/models/UserModel.scala:252: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL"""
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/models/UserModel.scala:260: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL"""
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/models/UserModel.scala:274: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     val success = SQL"""
+[warn]                   ^
+[warn] /home/user/txbits/original/txbits/app/models/UserModel.scala:287: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL"""
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/models/UserModel.scala:295: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL"""
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/models/UserModel.scala:303: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL"""
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/models/UserModel.scala:311: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL"""
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/models/UserModel.scala:319: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL"""
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/models/UserModel.scala:327: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL"""
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/models/UserModel.scala:335: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL"""
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/models/UserModel.scala:343: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL"""
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/models/UserModel.scala:357: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL"""
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/models/UserModel.scala:365: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL"""
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/models/UserModel.scala:373: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL"""
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/service/AnormParsers.scala:26: method nonNull in object Column is deprecated: Use [[nonNull1]]
+[warn]   implicit val rowToBigDecimalArrayArray: Column[Array[Array[java.math.BigDecimal]]] = Column.nonNull { (value, meta) =>
+[warn]                                                                                               ^
+[warn] /home/user/txbits/original/txbits/app/service/AnormParsers.scala:29: method eitherToError in object MayErr is deprecated: Use [[MayErr]] constructor explicitly.
+[warn]       case o: java.sql.Array => Right(o.getArray().asInstanceOf[Array[Array[java.math.BigDecimal]]])
+[warn]                                      ^
+[warn] /home/user/txbits/original/txbits/app/service/AnormParsers.scala:30: method eitherToError in object MayErr is deprecated: Use [[MayErr]] constructor explicitly.
+[warn]       case _ => Left(TypeDoesNotMatch("Cannot convert " + value + ":" + value.asInstanceOf[AnyRef].getClass))
+[warn]                     ^
+[warn] /home/user/txbits/original/txbits/app/usertrust/UserTrustModel.scala:29: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL"""select email, is_signup, language from trusted_action_requests"""().map(row =>
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/usertrust/UserTrustModel.scala:35: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL"""select w.*, u.email, u.id as uid, u.pgp, wc.address as destination from withdrawals w
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/wallet/WalletModel.scala:28: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL""" select pg_try_advisory_lock(${currency.id}, $nodeId) """().map(row => row[Boolean]("pg_try_advisory_lock")).head
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/wallet/WalletModel.scala:42: method asBatch in trait SqlQuery is deprecated: Directly use BatchSql("stmt")
+[warn]     ).asBatch /: addresses)(
+[warn]       ^
+[warn] /home/user/txbits/original/txbits/app/wallet/WalletModel.scala:48: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL""" select free_address_count(${currency.toString}, $nodeId) """().map(row => row[Long]("free_address_count")).head
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/wallet/WalletModel.scala:52: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL""" select * from get_min_confirmations(${currency.toString}) """().map(row => (
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/wallet/WalletModel.scala:60: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL""" select * from get_node_info(${currency.toString}, $nodeId) """().map(row => (
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/wallet/WalletModel.scala:70: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL""" select get_balance(${currency.toString}, $nodeId) """().map(row => row[BigDecimal]("get_balance")).headOption.getOrElse(BigDecimal("0"))
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/wallet/WalletModel.scala:74: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL""" select * from get_last_block_read(${currency.toString}, $nodeId) """().map(row => (
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/wallet/WalletModel.scala:88: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL""" select create_deposit(
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/wallet/WalletModel.scala:109: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL""" select is_confirmed_deposit(
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/wallet/WalletModel.scala:117: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL""" select * from get_pending_deposits(${currency.toString}, $nodeId) """().map(row =>
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/wallet/WalletModel.scala:131: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL""" select * from get_unconfirmed_withdrawal_tx(${currency.toString}, $nodeId) """().map(row => row[Option[Long]]("id") -> row[Option[String]]("tx_hash")).head match {
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/wallet/WalletModel.scala:139: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL""" select * from get_last_confirmed_withdrawal_tx(${currency.toString}, $nodeId) """().map(row => row[Option[Long]]("confirmed_id") -> row[Option[String]]("confirmed_tx_hash")).head match {
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/wallet/WalletModel.scala:146: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL""" select create_withdrawal_tx(${currency.toString}, $nodeId) """().map(row => row[Option[Long]]("create_withdrawal_tx")).head
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/wallet/WalletModel.scala:150: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL""" select * from get_withdrawal_tx_data($txId) """().map(row => row[String]("address") -> row[BigDecimal]("value")).toMap
+[warn]     ^
+[warn] /home/user/txbits/original/txbits/app/wallet/WalletModel.scala:166: method apply in trait WithResult is deprecated: Use [[fold]], [[foldWhile]] or [[withResult]] instead, which manages resources and memory
+[warn]     SQL""" select * from get_cold_storage_transfer($txId) """().map(row => row[Option[String]]("address") -> row[Option[BigDecimal]]("value")).head match {
+[warn]     ^
+[warn] 67 warnings found
+[success] Total time: 28 s, completed Aug 30, 2017 4:28:32 AM
+~/txbits/original
+user@198-23-151-66-host:~/txbits/original$ ./txbits.sh gen-idea
+~/txbits/original/txbits ~/txbits/original
+[info] Loading project definition from /home/user/txbits/original/txbits/project
+[info] Set current project to txbits (in build file:/home/user/txbits/original/txbits/)
+[info] Creating IDEA module for project 'txbits' ...
+[info] Running compile:managedSources ...
+[info] Running test:managedSources ...
+[warn] Multiple dependencies with the same organization/name but different versions. To avoid conflict, pick one version:
+[warn]  * org.scala-lang:scala-library:(2.11.7, 2.11.6)
+[warn]  * org.apache.httpcomponents:httpclient:(4.0.1, 4.3.4)
+[warn]  * org.scala-lang:scala-reflect:(2.11.6, 2.11.7)
+[warn]  * com.google.guava:guava:(18.0, 16.0.1)
+[warn]  * org.apache.httpcomponents:httpcore:(4.0.1, 4.3.2)
+[warn]  * commons-logging:commons-logging:(1.1.1, 1.1.3)
+[warn]  * org.scala-lang.modules:scala-parser-combinators_2.11:(1.0.1, 1.0.2, 1.0.4)
+[warn]  * org.scala-lang.modules:scala-xml_2.11:(1.0.1, 1.0.2, 1.0.4)
+[info] Resolving jline#jline;2.12.1 ...
+[info] Excluding folder target
+[info] Created /home/user/txbits/original/txbits/.idea/IdeaProject.iml
+[info] Deleted existing library files
+[info] Created /home/user/txbits/original/txbits/.idea
+[info] Excluding folder /home/user/txbits/original/txbits/target/scala-2.11/classes
+[info] Excluding folder /home/user/txbits/original/txbits/target/resolution-cache
+[info] Excluding folder /home/user/txbits/original/txbits/target/streams
+[info] Created /home/user/txbits/original/txbits/.idea_modules/txbits.iml
+[info] Created /home/user/txbits/original/txbits/.idea_modules/txbits-build.iml
+~/txbits/original
+user@198-23-151-66-host:~/txbits/original$ ./txbits.sh run
+~/txbits/original/txbits ~/txbits/original
+[info] Loading project definition from /home/user/txbits/original/txbits/project
+[info] Set current project to txbits (in build file:/home/user/txbits/original/txbits/)
+
+--- (Running the application, auto-reloading is enabled) ---
+
+[info] p.a.l.c.ActorSystemProvider - Starting application default Akka system: application
+[info] p.c.s.NettyServer - Listening for HTTP on /0:0:0:0:0:0:0:0:9000
+
+(Server started, use Ctrl+D to stop and go back to the console...)
+
+[debug] c.j.b.BoneCPDataSource - JDBC URL = jdbc:postgresql://localhost/txbits_testnet, Username = user, partitions = 1, max (per partition) = 30, min (per partition) = 5, idle max age = 10 min, idle test period = 1 min, strategy = DEFAULT
+[info] p.a.d.DefaultDBApi - Database [trust] connected at jdbc:postgresql://localhost/txbits_testnet
+[debug] c.j.b.BoneCPDataSource - JDBC URL = jdbc:postgresql://localhost/txbits_testnet, Username = user, partitions = 1, max (per partition) = 30, min (per partition) = 5, idle max age = 10 min, idle test period = 1 min, strategy = DEFAULT
+[info] p.a.d.DefaultDBApi - Database [wallet] connected at jdbc:postgresql://localhost/txbits_testnet
+[debug] c.j.b.BoneCPDataSource - JDBC URL = jdbc:postgresql://localhost/txbits_testnet, Username = user, partitions = 1, max (per partition) = 30, min (per partition) = 5, idle max age = 10 min, idle test period = 1 min, strategy = DEFAULT
+[info] p.a.d.DefaultDBApi - Database [default] connected at jdbc:postgresql://localhost/txbits_testnet
+[debug] c.j.b.StatementHandle - select id, hash, apply_script, revert_script, state, last_problem from play_evolutions where state like 'applying_%'
+[debug] c.j.b.StatementHandle - 
+            select id, hash, apply_script, revert_script from play_evolutions order by id
+        
+[info] a.e.s.Slf4jLogger - Slf4jLogger started
+[info] p.a.l.c.ActorSystemProvider - Starting application default Akka system: application
+[info] application - Application has started
+[info] application - [securesocial] loaded user service: class service.txbitsUserService$
+[info] play.api.Play - Application started (Dev)
+[debug] application - [securesocial] calling deleteExpiredTokens()
+[debug] c.j.b.PreparedStatementHandle - 
+      begin;
+      delete from deposits_crypto;
+      delete from deposits_other;
+      delete from deposits;
+      delete from users_passwords;
+      delete from users_api_keys;
+      delete from users_tfa_secrets;
+      delete from users_backup_otps;
+      delete from users_addresses;
+      delete from dw_fees;
+      delete from trade_fees;
+      delete from totp_tokens_blacklist;
+      delete from withdrawals_other;
+      delete from withdrawals_crypto;
+      delete from withdrawals_crypto_tx_mutated;
+      delete from withdrawals_crypto_tx_cold_storage;
+      delete from withdrawals_crypto_tx;
+      delete from withdrawals;
+      delete from currencies_crypto;
+      delete from wallets_crypto;
+      delete from balances;
+      delete from matches;
+      delete from stats_30_min;
+      delete from orders;
+      delete from markets;
+      delete from withdrawal_limits;
+      delete from currencies;
+      delete from event_log;
+      delete from tokens;
+      delete from trusted_action_requests;
+      delete from users;
+
+      select currency_insert('BTC',10);
+      select currency_insert('LTC',20);
+      select currency_insert('USD',30);
+      select currency_insert('CAD',40);
+
+      insert into markets(base,counter, limit_min, position) values ('BTC','USD',0.01,10);
+      insert into markets(base,counter, limit_min, position) values ('LTC','USD',0.1,20);
+      insert into markets(base,counter, limit_min, position) values ('LTC','BTC',0.1,30);
+      insert into markets(base,counter, limit_min, position) values ('USD','CAD',1.00,40);
+
+      insert into dw_fees(currency, method, deposit_constant, deposit_linear, withdraw_constant, withdraw_linear) values ('BTC', 'blockchain', 0.000, 0.000, 0.001, 0.000);
+      insert into dw_fees(currency, method, deposit_constant, deposit_linear, withdraw_constant, withdraw_linear) values ('LTC', 'blockchain', 0.000, 0.000, 0.010, 0.000);
+      insert into dw_fees(currency, method, deposit_constant, deposit_linear, withdraw_constant, withdraw_linear) values ('USD', 'wire', 0.000, 0.000, 0.000, 0.000);
+      insert into dw_fees(currency, method, deposit_constant, deposit_linear, withdraw_constant, withdraw_linear) values ('CAD', 'wire', 0.000, 0.000, 0.000, 0.000);
+
+      insert into trade_fees(linear, one_way) values (0.005, true);
+
+      insert into withdrawal_limits(currency, limit_min, limit_max) values ('BTC', 0.010, 10);
+      insert into withdrawal_limits(currency, limit_min, limit_max) values ('LTC', 0.100, 100);
+      insert into withdrawal_limits(currency, limit_min, limit_max) values ('USD', 1, 10000);
+      insert into withdrawal_limits(currency, limit_min, limit_max) values ('CAD', 1, 10000);
+
+      insert into currencies_crypto(currency) values('BTC');
+      insert into currencies_crypto(currency) values('LTC');
+
+      insert into wallets_crypto(currency, last_block_read, balance_min, balance_warn, balance_target, balance_max) values('LTC', 42, 0, 0, 1000, 10000);
+      insert into wallets_crypto(currency, last_block_read, balance_min, balance_warn, balance_target, balance_max) values('BTC', 42, 0, 0, 100, 1000);
+
+      insert into users(id, email) values (0, '');
+      insert into balances (user_id, currency) select 0, currency from currencies;
+
+      select create_user('me@viktorstanchev.com', 'password', true, null, 'en', 'stanchev');
+      select create_user('a@a.com', 'qwerty123', false, null, 'en', 'SuperCoolAdminGuy');
+      select create_user('b@b.com', '123qwe', false, null, 'en', 'StuzerTheLuzer');
+
+      update balances set balance = 1000 where user_id in (select id from users where email in ('me@viktorstanchev.com', 'a@a.com')) and currency in ('USD', 'CAD');
+      commit;
+      
+[debug] c.j.b.PreparedStatementHandle -  select * from get_currencies() 
+[debug] c.j.b.PreparedStatementHandle -  select * from get_pairs() 
+[debug] c.j.b.PreparedStatementHandle -  select * from dw_fees() 
+[debug] c.j.b.PreparedStatementHandle -  select * from trade_fees() 
+[debug] c.j.b.PreparedStatementHandle -  select * from dw_limits() 
+[debug] c.j.b.PreparedStatementHandle - select * from get_required_confirmations()
+[debug] c.j.b.PreparedStatementHandle - select * from delete_expired_tokens()
+[debug] c.j.b.PreparedStatementHandle - 
+    select * from delete_expired_totp_blacklist_tokens()
+    
+[debug] c.j.b.PreparedStatementHandle -  select * from chart_from_db('BTC', 'USD')
+[debug] c.j.b.PreparedStatementHandle -  select * from chart_from_db('LTC', 'USD')
+[debug] c.j.b.PreparedStatementHandle -  select * from chart_from_db('LTC', 'BTC')
+[debug] c.j.b.PreparedStatementHandle -  select * from chart_from_db('USD', 'CAD')
+[debug] c.j.b.PreparedStatementHandle - select email, is_signup, language from trusted_action_requests
+[debug] c.j.b.PreparedStatementHandle - select w.*, u.email, u.id as uid, u.pgp, wc.address as destination from withdrawals w
+       inner join users u on w.user_id = u.id
+       left join withdrawals_crypto wc on w.id = wc.id
+       where confirmation_token is null
+      
+[debug] c.j.b.PreparedStatementHandle - select email, is_signup, language from trusted_action_requests
+[debug] c.j.b.PreparedStatementHandle - select w.*, u.email, u.id as uid, u.pgp, wc.address as destination from withdrawals w
+       inner join users u on w.user_id = u.id
+       left join withdrawals_crypto wc on w.id = wc.id
+       where confirmation_token is null
+      
+
+
