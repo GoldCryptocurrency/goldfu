@@ -42,8 +42,8 @@ object CryptoAddress {
   }
 
   private val GoldTestnet = new NetworkParameters {
-    id = 42031
-    port = 19333
+    id = ID_TESTNET
+    port = 42031
     addressHeader = 111
     p2shHeader = 196
     acceptableAddressCodes = Array[Int](addressHeader, p2shHeader)
