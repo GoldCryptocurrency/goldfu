@@ -23,8 +23,8 @@ create or replace function
 order_new(
   a_uid bigint,
   a_api_key text,
-  new_base varchar(4),
-  new_counter varchar(4),
+  new_base varchar(6),
+  new_counter varchar(6),
   new_amount numeric(23,8),
   new_price numeric(23,8),
   new_is_bid boolean,

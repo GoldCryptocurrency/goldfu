@@ -398,7 +398,7 @@ object Wallet {
   object CryptoCurrency extends Enumeration {
     type CryptoCurrency = Value
     val BTC = Value(0)
-    val LTC = Value(1)
+    val GOLDC = Value(1)
     val PPC = Value(2)
     val XPM = Value(3)
   }
