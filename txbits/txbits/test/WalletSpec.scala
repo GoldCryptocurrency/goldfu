@@ -109,13 +109,13 @@ class WalletSpec extends Specification with Mockito {
       walletModel.createConfirmedDeposit(any[CryptoCurrency], any[Int], any[Deposit]) answers { _ => true }
 
       // this is our system under test with mocked out engine and rpc parameters
-      val walletActor = TestActorRef(new Wallet(rpc, Wallet.CryptoCurrency.GOLDC, 0, walletParams, walletModel, test = true))
+      val walletActor = TestActorRef(new Wallet(rpc, Wallet.CryptoCurrency.LTC, 0, walletParams, walletModel, test = true))
       val wallet = walletActor.underlyingActor
 
       wallet.update()
 
       // make sure the correct deposit was made
-      there was one(walletModel).createConfirmedDeposit(Wallet.CryptoCurrency.GOLDC, 0, Deposit("masdfasdfasdf", BigDecimal(12.34), "sha256txhash"))
+      there was one(walletModel).createConfirmedDeposit(Wallet.CryptoCurrency.LTC, 0, Deposit("masdfasdfasdf", BigDecimal(12.34), "sha256txhash"))
 
     }
 
@@ -132,9 +132,9 @@ class WalletSpec extends Specification with Mockito {
       val rpc = mock[JsonRpcHttpClient]
 
       // Associate the address manually
-      globals.walletModel.addNewAddress(Wallet.CryptoCurrency.GOLDC, 0, "masdfasdfasdf")
+      globals.walletModel.addNewAddress(Wallet.CryptoCurrency.LTC, 0, "masdfasdfasdf")
       // Retrieves addresses and assigns a new one if needed
-      globals.engineModel.addresses(uid, Wallet.CryptoCurrency.GOLDC.toString)
+      globals.engineModel.addresses(uid, Wallet.CryptoCurrency.LTC.toString)
 
       // first we fake the call to get the block number
       val blockCount = 99999999
@@ -162,14 +162,14 @@ class WalletSpec extends Specification with Mockito {
       rpc.invoke(same("listsinceblock"), any[Array[String]], same(classOf[ObjectNode])) returns list
 
       // this is our system under test with mocked out engine and rpc parameters
-      val walletActor = TestActorRef(new Wallet(rpc, Wallet.CryptoCurrency.GOLDC, 0, walletParams, globals.walletModel, test = true))
+      val walletActor = TestActorRef(new Wallet(rpc, Wallet.CryptoCurrency.LTC, 0, walletParams, globals.walletModel, test = true))
       val wallet = walletActor.underlyingActor
 
       wallet.update()
 
       // make sure the correct deposit was made
       val result = globals.engineModel.balance(Some(uid), None)
-      result should be equalTo globals.metaModel.currencies.map(_ -> (BigDecimal(0), BigDecimal(0))).toMap.updated("GOLDC", (BigDecimal(12.34), BigDecimal(0)))
+      result should be equalTo globals.metaModel.currencies.map(_ -> (BigDecimal(0), BigDecimal(0))).toMap.updated("LTC", (BigDecimal(12.34), BigDecimal(0)))
     }
 
     "be able to see pending deposit in the db" in new WithCleanTestDbApplication {
@@ -185,9 +185,9 @@ class WalletSpec extends Specification with Mockito {
       val rpc = mock[JsonRpcHttpClient]
 
       // Associate the address manually
-      globals.walletModel.addNewAddress(Wallet.CryptoCurrency.GOLDC, 0, "masdfasdfasdf")
+      globals.walletModel.addNewAddress(Wallet.CryptoCurrency.LTC, 0, "masdfasdfasdf")
       // Retrieves addresses and assigns a new one if needed
-      globals.engineModel.addresses(uid, Wallet.CryptoCurrency.GOLDC.toString)
+      globals.engineModel.addresses(uid, Wallet.CryptoCurrency.LTC.toString)
 
       // first we fake the call to get the block number
       val blockCount = 99999999
@@ -215,7 +215,7 @@ class WalletSpec extends Specification with Mockito {
       rpc.invoke(same("listsinceblock"), any[Array[String]], same(classOf[ObjectNode])) returns list
 
       // this is our system under test with mocked out engine and rpc parameters
-      val walletActor = TestActorRef(new Wallet(rpc, Wallet.CryptoCurrency.GOLDC, 0, walletParams, globals.walletModel, test = true))
+      val walletActor = TestActorRef(new Wallet(rpc, Wallet.CryptoCurrency.LTC, 0, walletParams, globals.walletModel, test = true))
       val wallet = walletActor.underlyingActor
 
       wallet.update()
@@ -236,15 +236,15 @@ class WalletSpec extends Specification with Mockito {
 
       val feeAmt = 1
       val feePct = 0.01
-      globals.engineModel.setFees("GOLDC", "blockchain", feeAmt, feePct, 0, 0)
+      globals.engineModel.setFees("LTC", "blockchain", feeAmt, feePct, 0, 0)
 
       // assemble a mock rpc to make calls into
       val rpc = mock[JsonRpcHttpClient]
 
       // Associate the address manually
-      globals.walletModel.addNewAddress(Wallet.CryptoCurrency.GOLDC, 0, "masdfasdfasdf")
+      globals.walletModel.addNewAddress(Wallet.CryptoCurrency.LTC, 0, "masdfasdfasdf")
       // Retrieves addresses and assigns a new one if needed
-      globals.engineModel.addresses(uid, Wallet.CryptoCurrency.GOLDC.toString)
+      globals.engineModel.addresses(uid, Wallet.CryptoCurrency.LTC.toString)
 
       // first we fake the call to get the block number
       val blockCount = 99999999
@@ -272,14 +272,14 @@ class WalletSpec extends Specification with Mockito {
       rpc.invoke(same("listsinceblock"), any[Array[String]], same(classOf[ObjectNode])) returns list
 
       // this is our system under test with mocked out engine and rpc parameters
-      val walletActor = TestActorRef(new Wallet(rpc, Wallet.CryptoCurrency.GOLDC, 0, walletParams, globals.walletModel, test = true))
+      val walletActor = TestActorRef(new Wallet(rpc, Wallet.CryptoCurrency.LTC, 0, walletParams, globals.walletModel, test = true))
       val wallet = walletActor.underlyingActor
 
       wallet.update()
 
       // make sure the correct deposit was made
       val result = globals.engineModel.balance(Some(uid), None)
-      result should be equalTo globals.metaModel.currencies.map(_ -> (BigDecimal(0), BigDecimal(0))).toMap.updated("GOLDC", (BigDecimal(12.34 - feeAmt - 12.34 * feePct), BigDecimal(0)))
+      result should be equalTo globals.metaModel.currencies.map(_ -> (BigDecimal(0), BigDecimal(0))).toMap.updated("LTC", (BigDecimal(12.34 - feeAmt - 12.34 * feePct), BigDecimal(0)))
     }
 
     "be charged the right fees for deposits not confirmed right away" in new WithCleanTestDbApplication {
@@ -290,15 +290,15 @@ class WalletSpec extends Specification with Mockito {
 
       val feeAmt = 1
       val feePct = 0.01
-      globals.engineModel.setFees("GOLDC", "blockchain", feeAmt, feePct, 0, 0)
+      globals.engineModel.setFees("LTC", "blockchain", feeAmt, feePct, 0, 0)
 
       // assemble a mock rpc to make calls into
       val rpc = mock[JsonRpcHttpClient]
 
       // Associate the address manually
-      globals.walletModel.addNewAddress(Wallet.CryptoCurrency.GOLDC, 0, "masdfasdfasdf")
+      globals.walletModel.addNewAddress(Wallet.CryptoCurrency.LTC, 0, "masdfasdfasdf")
       // Retrieves addresses and assigns a new one if needed
-      globals.engineModel.addresses(uid, Wallet.CryptoCurrency.GOLDC.toString)
+      globals.engineModel.addresses(uid, Wallet.CryptoCurrency.LTC.toString)
 
       // first we fake the call to get the block number
       var blockCount = 99999999
@@ -327,7 +327,7 @@ class WalletSpec extends Specification with Mockito {
       rpc.invoke(same("listsinceblock"), any[Array[String]], same(classOf[ObjectNode])) answers (_ => list)
 
       // this is our system under test with mocked out engine and rpc parameters
-      val walletActor = TestActorRef(new Wallet(rpc, Wallet.CryptoCurrency.GOLDC, 0, walletParams, globals.walletModel, test = true))
+      val walletActor = TestActorRef(new Wallet(rpc, Wallet.CryptoCurrency.LTC, 0, walletParams, globals.walletModel, test = true))
       val wallet = walletActor.underlyingActor
 
       wallet.update()
@@ -361,22 +361,22 @@ class WalletSpec extends Specification with Mockito {
 
       // make sure the correct deposit was made
       val result = globals.engineModel.balance(Some(uid), None)
-      result should be equalTo globals.metaModel.currencies.map(_ -> (BigDecimal(0), BigDecimal(0))).toMap.updated("GOLDC", (BigDecimal(12.34 - feeAmt - 12.34 * feePct), BigDecimal(0)))
+      result should be equalTo globals.metaModel.currencies.map(_ -> (BigDecimal(0), BigDecimal(0))).toMap.updated("LTC", (BigDecimal(12.34 - feeAmt - 12.34 * feePct), BigDecimal(0)))
     }
 
     "send a withdrawal and get charged the right fee" in new WithCleanTestDbApplication {
       val uid = globals.userModel.create("test@test.test", "", false).get
 
-      globals.userModel.addFakeMoney(uid, "GOLDC", 2)
+      globals.userModel.addFakeMoney(uid, "LTC", 2)
 
       // we are testing an actor
       implicit val actorSystem = Akka.system()
 
       val feeAmt = 1
       val feePct = 0.01
-      globals.engineModel.setFees("GOLDC", "blockchain", 0, 0, feeAmt, feePct)
+      globals.engineModel.setFees("LTC", "blockchain", 0, 0, feeAmt, feePct)
 
-      globals.engineModel.withdraw(uid, "GOLDC", 2, "masdfasdfasdf", None)
+      globals.engineModel.withdraw(uid, "LTC", 2, "masdfasdfasdf", None)
 
       // assemble a mock rpc to make calls into
       val rpc = mock[JsonRpcHttpClient]
@@ -399,7 +399,7 @@ class WalletSpec extends Specification with Mockito {
       rpc.invoke(same("listsinceblock"), any[Array[String]], same(classOf[ObjectNode])) answers (_ => list)
 
       // this is our system under test with mocked out engine and rpc parameters
-      val walletActor = TestActorRef(new Wallet(rpc, Wallet.CryptoCurrency.GOLDC, 0, walletParams, globals.walletModel, test = true))
+      val walletActor = TestActorRef(new Wallet(rpc, Wallet.CryptoCurrency.LTC, 0, walletParams, globals.walletModel, test = true))
       val wallet = walletActor.underlyingActor
 
       wallet.update()
@@ -415,7 +415,7 @@ class WalletSpec extends Specification with Mockito {
 
       wallet.update()
 
-      val (resultId, resultHash) = globals.walletModel.getUnconfirmedWithdrawalTx(Wallet.CryptoCurrency.GOLDC, 0).getOrElse((0L, ""))
+      val (resultId, resultHash) = globals.walletModel.getUnconfirmedWithdrawalTx(Wallet.CryptoCurrency.LTC, 0).getOrElse((0L, ""))
       resultHash shouldEqual "sha256txhash"
 
       // Now confirm the withdrawal
@@ -450,16 +450,16 @@ class WalletSpec extends Specification with Mockito {
     "send a withdrawal that gets mutated" in new WithCleanTestDbApplication {
       val uid = globals.userModel.create("test@test.test", "", false).get
 
-      globals.userModel.addFakeMoney(uid, "GOLDC", 2)
+      globals.userModel.addFakeMoney(uid, "LTC", 2)
 
       // we are testing an actor
       implicit val actorSystem = Akka.system()
 
       val feeAmt = 1
       val feePct = 0.01
-      globals.engineModel.setFees("GOLDC", "blockchain", 0, 0, feeAmt, feePct)
+      globals.engineModel.setFees("LTC", "blockchain", 0, 0, feeAmt, feePct)
 
-      globals.engineModel.withdraw(uid, "GOLDC", 2, "masdfasdfasdf", None)
+      globals.engineModel.withdraw(uid, "LTC", 2, "masdfasdfasdf", None)
 
       // assemble a mock rpc to make calls into
       val rpc = mock[JsonRpcHttpClient]
@@ -482,7 +482,7 @@ class WalletSpec extends Specification with Mockito {
       rpc.invoke(same("listsinceblock"), any[Array[String]], same(classOf[ObjectNode])) answers (_ => list)
 
       // this is our system under test with mocked out engine and rpc parameters
-      val walletActor = TestActorRef(new Wallet(rpc, Wallet.CryptoCurrency.GOLDC, 0, walletParams, globals.walletModel, test = true))
+      val walletActor = TestActorRef(new Wallet(rpc, Wallet.CryptoCurrency.LTC, 0, walletParams, globals.walletModel, test = true))
       val wallet = walletActor.underlyingActor
 
       wallet.update()
@@ -498,7 +498,7 @@ class WalletSpec extends Specification with Mockito {
 
       wallet.update()
 
-      val (resultId, resultHash) = globals.walletModel.getUnconfirmedWithdrawalTx(Wallet.CryptoCurrency.GOLDC, 0).getOrElse((0L, ""))
+      val (resultId, resultHash) = globals.walletModel.getUnconfirmedWithdrawalTx(Wallet.CryptoCurrency.LTC, 0).getOrElse((0L, ""))
       resultHash shouldEqual "sha256txhash"
 
       // Now confirm the withdrawal
@@ -540,7 +540,7 @@ class WalletSpec extends Specification with Mockito {
       val result = globals.engineModel.balance(Some(uid), None)
       result should be equalTo globals.metaModel.currencies.map(_ -> (BigDecimal(0), BigDecimal(0))).toMap
 
-      val (txId, mutatedTxHash) = globals.walletModel.getLastConfirmedWithdrawalTx(Wallet.CryptoCurrency.GOLDC, 0).getOrElse((0L, ""))
+      val (txId, mutatedTxHash) = globals.walletModel.getLastConfirmedWithdrawalTx(Wallet.CryptoCurrency.LTC, 0).getOrElse((0L, ""))
 
       txId shouldEqual resultId
       mutatedTxHash shouldEqual "mutatedtxhash"
@@ -554,15 +554,15 @@ class WalletSpec extends Specification with Mockito {
 
       val feeAmt = 1
       val feePct = 0.01
-      globals.engineModel.setFees("GOLDC", "blockchain", feeAmt, feePct, 0, 0)
+      globals.engineModel.setFees("LTC", "blockchain", feeAmt, feePct, 0, 0)
 
       // assemble a mock rpc to make calls into
       val rpc = mock[JsonRpcHttpClient]
 
       // Associate the address manually
-      globals.walletModel.addNewAddress(Wallet.CryptoCurrency.GOLDC, 0, "masdfasdfasdf")
+      globals.walletModel.addNewAddress(Wallet.CryptoCurrency.LTC, 0, "masdfasdfasdf")
       // Retrieves addresses and assigns a new one if needed
-      globals.engineModel.addresses(uid, Wallet.CryptoCurrency.GOLDC.toString)
+      globals.engineModel.addresses(uid, Wallet.CryptoCurrency.LTC.toString)
 
       // first we fake the call to get the block number
       val blockCount = 99999999
@@ -620,7 +620,7 @@ class WalletSpec extends Specification with Mockito {
       rpc.invoke(same("listsinceblock"), any[Array[String]], same(classOf[ObjectNode])) returns list
 
       // this is our system under test with mocked out engine and rpc parameters
-      val walletActor = TestActorRef(new Wallet(rpc, Wallet.CryptoCurrency.GOLDC, 0, walletParams, globals.walletModel, test = true))
+      val walletActor = TestActorRef(new Wallet(rpc, Wallet.CryptoCurrency.LTC, 0, walletParams, globals.walletModel, test = true))
       val wallet = walletActor.underlyingActor
 
       wallet.update()
@@ -628,30 +628,30 @@ class WalletSpec extends Specification with Mockito {
       // make sure the correct deposit was made
       val result = globals.engineModel.balance(Some(uid), None)
       // balance should equal the user's 12.34 + 1.23 deposit, the duplicate 1.23 deposit is intentionally not credited
-      result should be equalTo globals.metaModel.currencies.map(_ -> (BigDecimal(0), BigDecimal(0))).toMap.updated("GOLDC", (BigDecimal((12.34 - feeAmt - 12.34 * feePct) + (1.23 - feeAmt - 1.23 * feePct)), BigDecimal(0)))
+      result should be equalTo globals.metaModel.currencies.map(_ -> (BigDecimal(0), BigDecimal(0))).toMap.updated("LTC", (BigDecimal((12.34 - feeAmt - 12.34 * feePct) + (1.23 - feeAmt - 1.23 * feePct)), BigDecimal(0)))
     }
 
     "send a withdrawal only if the wallet has enough funds" in new WithCleanTestDbApplication {
       val uid = globals.userModel.create("test@test.test", "", false).get
 
-      globals.userModel.addFakeMoney(uid, "GOLDC", 11)
+      globals.userModel.addFakeMoney(uid, "LTC", 11)
 
       // we are testing an actor
       implicit val actorSystem = Akka.system()
 
       val feeAmt = 0.01
       val feePct = 0
-      globals.engineModel.setFees("GOLDC", "blockchain", 0, 0, feeAmt, feePct)
+      globals.engineModel.setFees("LTC", "blockchain", 0, 0, feeAmt, feePct)
 
       import globals._
       import play.api.db.DB
       import anorm._
 
       DB.withConnection(walletModel.db) { implicit c =>
-        SQL"""update wallets_crypto set balance = 10 where currency = 'GOLDC' and node_id = 0""".execute()
+        SQL"""update wallets_crypto set balance = 10 where currency = 'LTC' and node_id = 0""".execute()
       }
 
-      globals.engineModel.withdraw(uid, "GOLDC", 11, "masdfasdfasdf", None)
+      globals.engineModel.withdraw(uid, "LTC", 11, "masdfasdfasdf", None)
 
       // assemble a mock rpc to make calls into
       val rpc = mock[JsonRpcHttpClient]
@@ -674,7 +674,7 @@ class WalletSpec extends Specification with Mockito {
       rpc.invoke(same("listsinceblock"), any[Array[String]], same(classOf[ObjectNode])) answers (_ => list)
 
       // this is our system under test with mocked out engine and rpc parameters
-      val walletActor = TestActorRef(new Wallet(rpc, Wallet.CryptoCurrency.GOLDC, 0, walletParams, globals.walletModel, test = true))
+      val walletActor = TestActorRef(new Wallet(rpc, Wallet.CryptoCurrency.LTC, 0, walletParams, globals.walletModel, test = true))
       val wallet = walletActor.underlyingActor
 
       wallet.update()
@@ -690,7 +690,7 @@ class WalletSpec extends Specification with Mockito {
 
       wallet.update()
 
-      val (unsentId, unsentHash) = globals.walletModel.getUnconfirmedWithdrawalTx(Wallet.CryptoCurrency.GOLDC, 0).getOrElse((0L, ""))
+      val (unsentId, unsentHash) = globals.walletModel.getUnconfirmedWithdrawalTx(Wallet.CryptoCurrency.LTC, 0).getOrElse((0L, ""))
       unsentHash shouldEqual ""
 
       // refill the hot wallet and the withdrawal should send
@@ -714,7 +714,7 @@ class WalletSpec extends Specification with Mockito {
         """).asInstanceOf[ObjectNode]
       wallet.update()
 
-      val (resultId, resultHash) = globals.walletModel.getUnconfirmedWithdrawalTx(Wallet.CryptoCurrency.GOLDC, 0).getOrElse((0L, ""))
+      val (resultId, resultHash) = globals.walletModel.getUnconfirmedWithdrawalTx(Wallet.CryptoCurrency.LTC, 0).getOrElse((0L, ""))
       resultId shouldEqual unsentId
       resultHash shouldEqual "sha256txhash"
 
@@ -750,16 +750,16 @@ class WalletSpec extends Specification with Mockito {
     "resend a withdrawal that failed to send" in new WithCleanTestDbApplication {
       val uid = globals.userModel.create("test@test.test", "", false).get
 
-      globals.userModel.addFakeMoney(uid, "GOLDC", 2)
+      globals.userModel.addFakeMoney(uid, "LTC", 2)
 
       // we are testing an actor
       implicit val actorSystem = Akka.system()
 
       val feeAmt = 0.01
       val feePct = 0
-      globals.engineModel.setFees("GOLDC", "blockchain", 0, 0, feeAmt, feePct)
+      globals.engineModel.setFees("LTC", "blockchain", 0, 0, feeAmt, feePct)
 
-      globals.engineModel.withdraw(uid, "GOLDC", 1, "mfirstaddress", None)
+      globals.engineModel.withdraw(uid, "LTC", 1, "mfirstaddress", None)
 
       // assemble a mock rpc to make calls into
       val rpc = mock[JsonRpcHttpClient]
@@ -782,7 +782,7 @@ class WalletSpec extends Specification with Mockito {
       rpc.invoke(same("listsinceblock"), any[Array[String]], same(classOf[ObjectNode])) answers (_ => list)
 
       // this is our system under test with mocked out engine and rpc parameters
-      val walletActor = TestActorRef(new Wallet(rpc, Wallet.CryptoCurrency.GOLDC, 0, walletParams, globals.walletModel, test = true))
+      val walletActor = TestActorRef(new Wallet(rpc, Wallet.CryptoCurrency.LTC, 0, walletParams, globals.walletModel, test = true))
       val wallet = walletActor.underlyingActor
 
       wallet.update()
@@ -798,7 +798,7 @@ class WalletSpec extends Specification with Mockito {
 
       wallet.update()
 
-      val (firstId, firstHash) = globals.walletModel.getUnconfirmedWithdrawalTx(Wallet.CryptoCurrency.GOLDC, 0).getOrElse((0L, ""))
+      val (firstId, firstHash) = globals.walletModel.getUnconfirmedWithdrawalTx(Wallet.CryptoCurrency.LTC, 0).getOrElse((0L, ""))
       firstHash shouldEqual "firsttxhash"
 
       // Now confirm the withdrawal
@@ -822,7 +822,7 @@ class WalletSpec extends Specification with Mockito {
           }
         """).asInstanceOf[ObjectNode]
 
-      globals.engineModel.withdraw(uid, "GOLDC", 1, "masdfasdfasdf", None)
+      globals.engineModel.withdraw(uid, "LTC", 1, "masdfasdfasdf", None)
 
       // pretend like the user confirmed all withdrawals requested
       val reqs2 = globals.userTrustModel.getPendingWithdrawalRequests
@@ -840,18 +840,18 @@ class WalletSpec extends Specification with Mockito {
       firstWithdrawalTx should be equalTo Map("mfirstaddress" -> BigDecimal(0.99))
 
       // first withdrawal should have been confirmed
-      val (firstConfirmedId, firstConfirmedHash) = globals.walletModel.getLastConfirmedWithdrawalTx(Wallet.CryptoCurrency.GOLDC, 0).getOrElse((0L, ""))
+      val (firstConfirmedId, firstConfirmedHash) = globals.walletModel.getLastConfirmedWithdrawalTx(Wallet.CryptoCurrency.LTC, 0).getOrElse((0L, ""))
       firstConfirmedId shouldEqual firstId
       firstConfirmedHash shouldEqual "firsttxhash"
 
-      val (unsentId, unsentHash) = globals.walletModel.getUnconfirmedWithdrawalTx(Wallet.CryptoCurrency.GOLDC, 0).getOrElse((0L, ""))
+      val (unsentId, unsentHash) = globals.walletModel.getUnconfirmedWithdrawalTx(Wallet.CryptoCurrency.LTC, 0).getOrElse((0L, ""))
       unsentHash shouldEqual ""
 
       // restore rpc connection
       rpc.invoke(same("sendmany"), any[Array[Object]], same(classOf[String])) answers (_ => "sha256txhash")
       wallet.update()
 
-      val (resultId, resultHash) = globals.walletModel.getUnconfirmedWithdrawalTx(Wallet.CryptoCurrency.GOLDC, 0).getOrElse((0L, ""))
+      val (resultId, resultHash) = globals.walletModel.getUnconfirmedWithdrawalTx(Wallet.CryptoCurrency.LTC, 0).getOrElse((0L, ""))
       resultId shouldEqual unsentId
       resultHash shouldEqual "sha256txhash"
 
@@ -883,7 +883,7 @@ class WalletSpec extends Specification with Mockito {
       val result = globals.engineModel.balance(Some(uid), None)
       result should be equalTo globals.metaModel.currencies.map(_ -> (BigDecimal(0), BigDecimal(0))).toMap
 
-      val (confirmedId, confirmedHash) = globals.walletModel.getLastConfirmedWithdrawalTx(Wallet.CryptoCurrency.GOLDC, 0).getOrElse((0L, ""))
+      val (confirmedId, confirmedHash) = globals.walletModel.getLastConfirmedWithdrawalTx(Wallet.CryptoCurrency.LTC, 0).getOrElse((0L, ""))
       confirmedId shouldEqual unsentId
       confirmedHash shouldEqual "sha256txhash"
     }
@@ -891,16 +891,16 @@ class WalletSpec extends Specification with Mockito {
     "confirm a withdrawal that may or may not have been sent" in new WithCleanTestDbApplication {
       val uid = globals.userModel.create("test@test.test", "", false).get
 
-      globals.userModel.addFakeMoney(uid, "GOLDC", 11)
+      globals.userModel.addFakeMoney(uid, "LTC", 11)
 
       // we are testing an actor
       implicit val actorSystem = Akka.system()
 
       val feeAmt = 0.01
       val feePct = 0
-      globals.engineModel.setFees("GOLDC", "blockchain", 0, 0, feeAmt, feePct)
+      globals.engineModel.setFees("LTC", "blockchain", 0, 0, feeAmt, feePct)
 
-      globals.engineModel.withdraw(uid, "GOLDC", 11, "masdfasdfasdf", None)
+      globals.engineModel.withdraw(uid, "LTC", 11, "masdfasdfasdf", None)
 
       // assemble a mock rpc to make calls into
       val rpc = mock[JsonRpcHttpClient]
@@ -924,7 +924,7 @@ class WalletSpec extends Specification with Mockito {
       rpc.invoke(same("listsinceblock"), any[Array[String]], same(classOf[ObjectNode])) answers (_ => list)
 
       // this is our system under test with mocked out engine and rpc parameters
-      val walletActor = TestActorRef(new Wallet(rpc, Wallet.CryptoCurrency.GOLDC, 0, walletParams, globals.walletModel, test = true))
+      val walletActor = TestActorRef(new Wallet(rpc, Wallet.CryptoCurrency.LTC, 0, walletParams, globals.walletModel, test = true))
       val wallet = walletActor.underlyingActor
 
       wallet.update()
@@ -940,7 +940,7 @@ class WalletSpec extends Specification with Mockito {
 
       wallet.update()
 
-      val (unsentId, unsentHash) = globals.walletModel.getUnconfirmedWithdrawalTx(Wallet.CryptoCurrency.GOLDC, 0).getOrElse((0L, ""))
+      val (unsentId, unsentHash) = globals.walletModel.getUnconfirmedWithdrawalTx(Wallet.CryptoCurrency.LTC, 0).getOrElse((0L, ""))
       unsentHash shouldEqual ""
 
       // the withdrawal should have been sent
@@ -967,7 +967,7 @@ class WalletSpec extends Specification with Mockito {
       rpc.invoke(same("sendmany"), any[Array[Object]], same(classOf[String])) answers (_ => "sha256txhash")
       wallet.update()
 
-      val (resultId, resultHash) = globals.walletModel.getUnconfirmedWithdrawalTx(Wallet.CryptoCurrency.GOLDC, 0).getOrElse((0L, ""))
+      val (resultId, resultHash) = globals.walletModel.getUnconfirmedWithdrawalTx(Wallet.CryptoCurrency.LTC, 0).getOrElse((0L, ""))
       resultId shouldEqual unsentId
       resultHash shouldEqual "sha256txhash"
 
@@ -999,7 +999,7 @@ class WalletSpec extends Specification with Mockito {
       val result = globals.engineModel.balance(Some(uid), None)
       result should be equalTo globals.metaModel.currencies.map(_ -> (BigDecimal(0), BigDecimal(0))).toMap
 
-      val (confirmedId, confirmedHash) = globals.walletModel.getLastConfirmedWithdrawalTx(Wallet.CryptoCurrency.GOLDC, 0).getOrElse((0L, ""))
+      val (confirmedId, confirmedHash) = globals.walletModel.getLastConfirmedWithdrawalTx(Wallet.CryptoCurrency.LTC, 0).getOrElse((0L, ""))
       confirmedId shouldEqual unsentId
       confirmedHash shouldEqual "sha256txhash"
     }

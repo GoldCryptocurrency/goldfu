@@ -68,31 +68,31 @@ class EngineModel(val db: String = "default") {
     SQL"""
 
       select currency_insert('BTC',10);
-      select currency_insert('GOLDC',20);
+      select currency_insert('LTC',20);
       select currency_insert('USD',30);
       select currency_insert('CAD',40);
 
       insert into markets(base,counter,limit_min,position) values('BTC','USD',0.01,10);
-      insert into markets(base,counter,limit_min,position) values('GOLDC','USD',0.1,20);
-      insert into markets(base,counter,limit_min,position) values('GOLDC','BTC',0.1,30);
+      insert into markets(base,counter,limit_min,position) values('LTC','USD',0.1,20);
+      insert into markets(base,counter,limit_min,position) values('LTC','BTC',0.1,30);
       insert into markets(base,counter,limit_min,position) values('USD','CAD',1.00,40);
 
-      insert into dw_fees(currency, method, deposit_constant, deposit_linear, withdraw_constant, withdraw_linear) values ('GOLDC', 'blockchain', 0.000, 0.000, 0.000, 0.000);
+      insert into dw_fees(currency, method, deposit_constant, deposit_linear, withdraw_constant, withdraw_linear) values ('LTC', 'blockchain', 0.000, 0.000, 0.000, 0.000);
       insert into dw_fees(currency, method, deposit_constant, deposit_linear, withdraw_constant, withdraw_linear) values ('BTC', 'blockchain', 0.000, 0.000, 0.000, 0.000);
       insert into dw_fees(currency, method, deposit_constant, deposit_linear, withdraw_constant, withdraw_linear) values ('USD', 'wire', 0.000, 0.000, 0.000, 0.000);
       insert into dw_fees(currency, method, deposit_constant, deposit_linear, withdraw_constant, withdraw_linear) values ('CAD', 'wire', 0.000, 0.000, 0.000, 0.000);
 
       insert into trade_fees(linear, one_way) values (0.005, false);
 
-      insert into withdrawal_limits(currency, limit_min, limit_max) values ('GOLDC', 0.001, 100);
+      insert into withdrawal_limits(currency, limit_min, limit_max) values ('LTC', 0.001, 100);
       insert into withdrawal_limits(currency, limit_min, limit_max) values ('BTC', 0.001, 100);
       insert into withdrawal_limits(currency, limit_min, limit_max) values ('USD', 1, 10000);
       insert into withdrawal_limits(currency, limit_min, limit_max) values ('CAD', 1, 10000);
 
       insert into currencies_crypto(currency) values('BTC');
-      insert into currencies_crypto(currency) values('GOLDC');
+      insert into currencies_crypto(currency) values('LTC');
 
-      insert into wallets_crypto(currency, last_block_read, balance_min, balance_warn, balance_target, balance_max, balance) values('GOLDC', 42, 0, 0, 1000, 10000, 9999);
+      insert into wallets_crypto(currency, last_block_read, balance_min, balance_warn, balance_target, balance_max, balance) values('LTC', 42, 0, 0, 1000, 10000, 9999);
       insert into wallets_crypto(currency, last_block_read, balance_min, balance_warn, balance_target, balance_max, balance) values('BTC', 42, 0, 0, 100, 1000, 9999);
 
       insert into users(id, email) values (0, '');

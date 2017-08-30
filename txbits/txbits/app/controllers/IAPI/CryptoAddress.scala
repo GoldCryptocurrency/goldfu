@@ -41,6 +41,26 @@ object CryptoAddress {
     val getPaymentProtocolId: String = PAYMENT_PROTOCOL_ID_MAINNET
   }
 
+  private val LitecoinTestnet = new NetworkParameters {
+    id = ID_TESTNET
+    port = 19333
+    addressHeader = 111
+    p2shHeader = 196
+    acceptableAddressCodes = Array[Int](addressHeader, p2shHeader)
+
+    val getPaymentProtocolId: String = PAYMENT_PROTOCOL_ID_TESTNET
+  }
+
+  private val Litecoin = new NetworkParameters {
+    id = ID_MAINNET
+    port = 9333
+    addressHeader = 48
+    p2shHeader = 5
+    acceptableAddressCodes = Array[Int](addressHeader, p2shHeader)
+
+    val getPaymentProtocolId: String = PAYMENT_PROTOCOL_ID_MAINNET
+  }
+
   private val GoldTestnet = new NetworkParameters {
     id = ID_TESTNET
     port = 42031
@@ -105,6 +125,8 @@ object CryptoAddress {
     val network = currency match {
       case "BTC" if testnet => BitcoinTestnet
       case "BTC" => Bitcoin
+      case "LTC" if testnet => LitecoinTestnet
+      case "LTC" => Litecoin
       case "GOLDC" if testnet => GoldTestnet
       case "GOLDC" => Gold
       case "PPC" if testnet => PeercoinTestnet

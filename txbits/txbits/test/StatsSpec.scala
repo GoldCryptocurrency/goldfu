@@ -32,13 +32,13 @@ class StatsSpec extends Specification with Mockito {
       val asker = globals.userModel.create("test@test.test", "", false).get
       val bidder = globals.userModel.create("test2@test.test", "", false).get
 
-      globals.userModel.addFakeMoney(asker, "GOLDC", 1)
+      globals.userModel.addFakeMoney(asker, "LTC", 1)
       globals.userModel.addFakeMoney(bidder, "USD", 1)
 
-      globals.engineModel.askBid(Some(asker), None, "GOLDC", "USD", 1, 1, false)
-      globals.engineModel.askBid(Some(bidder), None, "GOLDC", "USD", 1, 1, true)
+      globals.engineModel.askBid(Some(asker), None, "LTC", "USD", 1, 1, false)
+      globals.engineModel.askBid(Some(bidder), None, "LTC", "USD", 1, 1, true)
 
-      val stats_res = controllers.StatsAPI.APIv1.chartFromDB("GOLDC", "USD")
+      val stats_res = controllers.StatsAPI.APIv1.chartFromDB("LTC", "USD")
       stats_res.head.drop(1).map(_.value) should be equalTo Seq(1, 1, 1, 1, 1)
       val stats_res2 = controllers.StatsAPI.APIv1.chartFromDB("BTC", "USD")
       stats_res2 should beEmpty
@@ -48,13 +48,13 @@ class StatsSpec extends Specification with Mockito {
       val asker = globals.userModel.create("test@test.test", "", false).get
       val bidder = globals.userModel.create("test2@test.test", "", false).get
 
-      globals.userModel.addFakeMoney(asker, "GOLDC", 1)
+      globals.userModel.addFakeMoney(asker, "LTC", 1)
       globals.userModel.addFakeMoney(bidder, "USD", 1)
 
-      globals.engineModel.askBid(Some(bidder), None, "GOLDC", "USD", 1, 1, true)
-      globals.engineModel.askBid(Some(asker), None, "GOLDC", "USD", 1, 1, false)
+      globals.engineModel.askBid(Some(bidder), None, "LTC", "USD", 1, 1, true)
+      globals.engineModel.askBid(Some(asker), None, "LTC", "USD", 1, 1, false)
 
-      val stats_res = controllers.StatsAPI.APIv1.chartFromDB("GOLDC", "USD")
+      val stats_res = controllers.StatsAPI.APIv1.chartFromDB("LTC", "USD")
       stats_res.head.drop(1).map(_.value) should be equalTo Seq(1, 1, 1, 1, 1)
     }
 
@@ -62,13 +62,13 @@ class StatsSpec extends Specification with Mockito {
       val asker = globals.userModel.create("test@test.test", "", false).get
       val bidder = globals.userModel.create("test2@test.test", "", false).get
 
-      globals.userModel.addFakeMoney(asker, "GOLDC", 1)
+      globals.userModel.addFakeMoney(asker, "LTC", 1)
       globals.userModel.addFakeMoney(bidder, "USD", 1)
 
-      globals.engineModel.askBid(Some(asker), None, "GOLDC", "USD", 1, 2, false)
-      globals.engineModel.askBid(Some(bidder), None, "GOLDC", "USD", 1, 1, true)
+      globals.engineModel.askBid(Some(asker), None, "LTC", "USD", 1, 2, false)
+      globals.engineModel.askBid(Some(bidder), None, "LTC", "USD", 1, 1, true)
 
-      val stats_res = controllers.StatsAPI.APIv1.chartFromDB("GOLDC", "USD")
+      val stats_res = controllers.StatsAPI.APIv1.chartFromDB("LTC", "USD")
       stats_res should beEmpty
     }
 
@@ -76,15 +76,15 @@ class StatsSpec extends Specification with Mockito {
       val asker = globals.userModel.create("test@test.test", "", false).get
       val bidder = globals.userModel.create("test2@test.test", "", false).get
 
-      globals.userModel.addFakeMoney(asker, "GOLDC", 10)
+      globals.userModel.addFakeMoney(asker, "LTC", 10)
       globals.userModel.addFakeMoney(bidder, "USD", 10)
 
-      globals.engineModel.askBid(Some(asker), None, "GOLDC", "USD", 1, 1, false)
-      globals.engineModel.askBid(Some(bidder), None, "GOLDC", "USD", 2, 2, true)
-      globals.engineModel.askBid(Some(asker), None, "GOLDC", "USD", 2, 1.5, false)
-      globals.engineModel.askBid(Some(bidder), None, "GOLDC", "USD", 1, 1.5, true)
+      globals.engineModel.askBid(Some(asker), None, "LTC", "USD", 1, 1, false)
+      globals.engineModel.askBid(Some(bidder), None, "LTC", "USD", 2, 2, true)
+      globals.engineModel.askBid(Some(asker), None, "LTC", "USD", 2, 1.5, false)
+      globals.engineModel.askBid(Some(bidder), None, "LTC", "USD", 1, 1.5, true)
 
-      val stats_res = controllers.StatsAPI.APIv1.chartFromDB("GOLDC", "USD")
+      val stats_res = controllers.StatsAPI.APIv1.chartFromDB("LTC", "USD")
       stats_res.head(1).value should be equalTo 1
       stats_res.head(2).value should be equalTo 2
       stats_res.head(3).value should be equalTo 1
